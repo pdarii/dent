@@ -1,0 +1,9 @@
+<div class="input-group search-inp">
+    <input (keyup)="searchClient(searchinp.value)" type="text" class="form-control" placeholder="Введіть ім'я" aria-label="Username" aria-describedby="basic-addon1" #searchinp>
+</div>
+
+<ul class="list-group">
+    <li *ngFor="let client of clients" (click)="editClient(client)" class="list-group-item list-group-item-action">
+        {{ client.name }}
+    </li>
+</ul>

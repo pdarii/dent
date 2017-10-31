@@ -1,0 +1,13 @@
+nav a{
+    width: 100%;
+    display: block;
+    background: rgb(236, 133, 95);
+    margin: 0 0 10px 0;
+    padding: 10px 10px;
+    color: white;
+}
+
+nav a:hover{
+    opacity: 0.8;
+    text-decoration: none;
+}
