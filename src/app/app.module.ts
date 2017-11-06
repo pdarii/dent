@@ -12,8 +12,12 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { AddclientComponent } from './components/addclient/addclient.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
+import { ClinicCalendarComponent } from './components/calendar/calendar.component';
 import { EditclientComponent } from './components/editclient/editclient.component';
+import { LongagoComponent } from './components/longago/longago.component';
+import { BirthdaysComponent } from './components/birthdays/birthdays.component';
+import { MenuwidgetComponent } from './components/menuwidget/menuwidget.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
 
 
 
@@ -23,8 +27,12 @@ import { EditclientComponent } from './components/editclient/editclient.componen
     MenuComponent,
     ClientsComponent,
     AddclientComponent,
-    CalendarComponent,
+    ClinicCalendarComponent,
     EditclientComponent,
+    LongagoComponent,
+    BirthdaysComponent,
+    MenuwidgetComponent,
+    StatisticComponent,
 
   ],
   imports: [
