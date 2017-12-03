@@ -1,0 +1,24 @@
+{ 
+    "_id" : "Qavhmfm88wXSFRkeb", 
+    "name" : "Степан", 
+    "surname" : "Хитрий", 
+    "tel" : "0508888888", 
+    "comment" : "", 
+    "color" : "#4286f4"
+}
+{ 
+    "_id" : "k876fPtEXxmMEmsJ2", 
+    "name" : "Наталія", 
+    "surname" : "Хитра", 
+    "tel" : "0508888881", 
+    "comment" : "", 
+    "color" : "pink"
+}
+{ 
+    "_id" : "gM2c3RvNm7xFq6xd6", 
+    "name" : "Вадим", 
+    "surname" : "Сандуляк", 
+    "tel" : "0508888882", 
+    "comment" : "", 
+    "color" : "grey"
+}

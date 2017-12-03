@@ -1,0 +1,131 @@
+{ 
+    "_id" : "LgsH8TkxkRomJ36TM", 
+    "clientid" : "ewjm2Mn9aBX2R2xNd", 
+    "datetime" : ISODate("2017-02-24T15:31:00.000+0000"), 
+    "jobdone" : "Будемо рвати зубиуц ац", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "nX6AxJLLii28RP6xF", 
+    "clientid" : "ewjm2Mn9aBX2R2xNd", 
+    "datetime" : ISODate("2017-02-24T16:50:00.000+0000"), 
+    "jobdone" : "Тесто", 
+    "doctor" : "k876fPtEXxmMEmsJ2"
+}
+{ 
+    "_id" : "9gRpZxPbAX4c89yvn", 
+    "clientid" : "ewjm2Mn9aBX2R2xNd", 
+    "datetime" : ISODate("2017-02-22T14:07:00.000+0000"), 
+    "jobdone" : "прийшов на огляд вперше", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "2Eiws6Bp7f5v8oTf9", 
+    "clientid" : "ewjm2Mn9aBX2R2xNd", 
+    "datetime" : ISODate("2016-11-12T12:11:00.000+0000"), 
+    "jobdone" : "Ставили пломбу", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "o5EozGg48RNeTC5Mw", 
+    "clientid" : "f8ihD442E8tpm2bsX", 
+    "datetime" : ISODate("2017-05-02T14:05:00.000+0000"), 
+    "jobdone" : "Прийде", 
+    "doctor" : "Qavhmfm88wXSFRkeb"
+}
+{ 
+    "_id" : "NLyv8XzrNbJSxypDH", 
+    "clientid" : "f8ihD442E8tpm2bsX", 
+    "datetime" : "Sun Jan 29 2017 14:35:00 GMT+0000", 
+    "jobdone" : "Буде"
+}
+{ 
+    "_id" : "cyWyZSvDwT7FW76mo", 
+    "clientid" : "s4SwYaPiBZbZKpPNW", 
+    "datetime" : ISODate("2016-12-28T12:01:00.000+0000"), 
+    "jobdone" : "Прийшов вперше", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "SQybYbizAXv4hQdBZ", 
+    "clientid" : "8LZJpZpk8rEHcTGtB", 
+    "datetime" : ISODate("2016-04-01T11:06:00.000+0000"), 
+    "jobdone" : "давно була", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "iXNgbpamXipW9jy9E", 
+    "clientid" : "X8tj6THEzYW44oxEC", 
+    "datetime" : "Sun Jan 15 2017 20:00:00 GMT+0000", 
+    "jobdone" : ""
+}
+{ 
+    "_id" : "MrrdR6BYKzbKbCoHP", 
+    "clientid" : "ewjm2Mn9aBX2R2xNd", 
+    "datetime" : ISODate("2017-02-23T14:07:00.000+0000"), 
+    "jobdone" : "qwdqwd", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "vefN4t3Hk99PBYA7T", 
+    "clientid" : "ewjm2Mn9aBX2R2xNd", 
+    "datetime" : ISODate("2017-02-16T16:59:00.000+0000"), 
+    "jobdone" : "Тестова перевірка з     кольором", 
+    "doctor" : "k876fPtEXxmMEmsJ2"
+}
+{ 
+    "_id" : "kSKAEzQa5mQCqdD7A", 
+    "clientid" : "8LZJpZpk8rEHcTGtB", 
+    "datetime" : ISODate("2016-05-13T09:05:00.000+0000"), 
+    "jobdone" : "Тестовий запис", 
+    "doctor" : "k876fPtEXxmMEmsJ2"
+}
+{ 
+    "_id" : "WYdavsyp3ajHsAhwu", 
+    "clientid" : "csaDvCrhivFbKQCdY", 
+    "datetime" : ISODate("2016-07-04T13:07:00.000+0000"), 
+    "jobdone" : "тест петро", 
+    "doctor" : "Qavhmfm88wXSFRkeb"
+}
+{ 
+    "_id" : "CD2LQPBTq6Hr29Geu", 
+    "clientid" : "csaDvCrhivFbKQCdY", 
+    "datetime" : ISODate("2017-04-08T12:14:00.000+0000"), 
+    "jobdone" : "Був просто так", 
+    "doctor" : "Qavhmfm88wXSFRkeb"
+}
+{ 
+    "_id" : "qfdwJDK5BwYE2HTtg", 
+    "clientid" : "csaDvCrhivFbKQCdY", 
+    "datetime" : ISODate("2017-05-03T08:05:00.000+0000"), 
+    "jobdone" : "еуеіе", 
+    "doctor" : "k876fPtEXxmMEmsJ2"
+}
+{ 
+    "_id" : "ETPHfF7t9unrwnH4o", 
+    "clientid" : "f8ihD442E8tpm2bsX", 
+    "datetime" : ISODate("2017-03-08T08:03:00.000+0000"), 
+    "jobdone" : "Дві пломби", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "4Fq2g6Dhs2WiRTqwg", 
+    "clientid" : "AcYryvH3qtoqZbtHu", 
+    "datetime" : ISODate("2017-05-05T11:23:00.000+0000"), 
+    "jobdone" : "", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "Ki5inckyiw7nLPZCB", 
+    "clientid" : "ewjm2Mn9aBX2R2xNd", 
+    "datetime" : ISODate("2017-05-02T14:26:00.000+0000"), 
+    "jobdone" : "Тестовий запис", 
+    "doctor" : "gM2c3RvNm7xFq6xd6"
+}
+{ 
+    "_id" : "2gCnsB9v3MSXH4fAE", 
+    "clientid" : "jZum7MH8WDcSMtCWQ", 
+    "datetime" : ISODate("2017-05-02T14:43:00.000+0000"), 
+    "jobdone" : "Тестовий запис", 
+    "doctor" : "k876fPtEXxmMEmsJ2"
+}
