@@ -18,6 +18,7 @@ import { LongagoComponent } from './components/longago/longago.component';
 import { BirthdaysComponent } from './components/birthdays/birthdays.component';
 import { MenuwidgetComponent } from './components/menuwidget/menuwidget.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
+import { PlanclientComponent } from './components/planclient/planclient.component';
 
 
 
@@ -33,6 +34,7 @@ import { StatisticComponent } from './components/statistic/statistic.component';
     BirthdaysComponent,
     MenuwidgetComponent,
     StatisticComponent,
+    PlanclientComponent,
 
   ],
   imports: [

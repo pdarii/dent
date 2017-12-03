@@ -10,6 +10,8 @@ import { LongagoComponent } from './components/longago/longago.component';
 import { BirthdaysComponent } from './components/birthdays/birthdays.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 
+import { PlanclientComponent } from './components/planclient/planclient.component';
+
 
 const routes: Routes = [
     { path: '', redirectTo: '/clients', pathMatch: 'full' },
@@ -18,6 +20,7 @@ const routes: Routes = [
     { path: 'calendar', component: ClinicCalendarComponent },
     { path: 'statistic', component: StatisticComponent },
     { path: 'edit/:id', component: EditclientComponent },
+    { path: 'plan/:id', component: PlanclientComponent },
     { path: 'birthdays', component: BirthdaysComponent },
     { path: 'werelongago', component: LongagoComponent },
 ];

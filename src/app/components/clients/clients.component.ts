@@ -33,5 +33,9 @@ export class ClientsComponent implements OnInit {
     this.router.navigate(['/edit', client.id]);
   }
 
+  public planClient(client: Client): void {
+    this.router.navigate(['/plan', client.id]);
+  }
+
 
 }
