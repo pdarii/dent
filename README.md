@@ -110,29 +110,29 @@
 
 
 # MONGO
-
+```
 brew update
 brew install mongodb
 mkdir -p /data/db
 Set permissions for the data directory.
 mongod
-
+```
 
 # Бази
 
-DB
+```
 ClientsList = new Mongo.Collection('clients');
 CalendarEvents = new Mongo.Collection('calendar');
 UserAccounts = new Mongo.Collection('userAccounts');
 DoctorsList = new Mongo.Collection('doctors');
+```
 
-
+```
 //ClientsList.insert({name: "Petro",surname: "Darii",tel:"0500748190", comment:"Cool Guy" });
 //DoctorsList.insert({name: "Petro",surname: "Darii",tel:"0500748190", comment:"Cool Guy" });
+```
 
-
-addclient
-
+```
 ClientsList.insert({name: clientname,
 				surname: clientsurname,
 				tel:clientphone, 
@@ -140,4 +140,4 @@ ClientsList.insert({name: clientname,
 				clientnum: clientnum,
 				clientbirthday: jsdate
 			});
-			
+```
