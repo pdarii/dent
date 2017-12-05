@@ -19,6 +19,8 @@ import { BirthdaysComponent } from './components/birthdays/birthdays.component';
 import { MenuwidgetComponent } from './components/menuwidget/menuwidget.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { PlanclientComponent } from './components/planclient/planclient.component';
+import { PlananonymousclientComponent } from './components/plananonymousclient/plananonymousclient.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -35,11 +37,13 @@ import { PlanclientComponent } from './components/planclient/planclient.componen
     MenuwidgetComponent,
     StatisticComponent,
     PlanclientComponent,
+    PlananonymousclientComponent,
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [ ClientsService ],
   bootstrap: [AppComponent]
