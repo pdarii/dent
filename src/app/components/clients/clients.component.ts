@@ -13,26 +13,36 @@ import { Router } from '@angular/router';
 export class ClientsComponent implements OnInit {
 
   private clients: Array<Client>;
-  private showSpinner = true;
+  private showSpinner = false;
 
   constructor(
     private clientsService: ClientsService,
-    private router: Router) {
-    this.getClients();
-  }
+    private router: Router) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getClients();
+   }
 
   public getClients(): void {
-   this.clientsService.getClients().subscribe((clients) => {
-      console.log(clients);
+    this.showSpinner = true;
+    this.clientsService.getClients().subscribe((clients) => {
       this.clients = clients;
       this.showSpinner = false;
     });
   }
 
   public searchClient(name: string): void {
-    // this.clients = this.clientsService.searchClient(name);
+    if (name.trim() === '') {
+      this.getClients();
+      return;
+    }
+    this.showSpinner = true;
+    this.clientsService.searchClient(name).subscribe((clients) => {
+      console.log(clients);
+      this.clients = clients;
+      this.showSpinner = false;
+    });
+
   }
 
   public editClient(client: Client): void {

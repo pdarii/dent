@@ -29,7 +29,6 @@ export class EditclientComponent implements OnInit {
     this.route.paramMap
     .switchMap( ( params: ParamMap ) => this.clientsService.getClientById(params.get('id')))
     .subscribe((client) => {
-      console.log(client);
       this.client = client;
     });
   }

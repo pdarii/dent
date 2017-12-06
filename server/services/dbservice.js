@@ -9,6 +9,25 @@ class DBService {
         this.res = res
     }
 
+    getClientsCount() {
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+            db.collection('clients').count()
+                .then((num) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: num
+                    })
+                })
+                .catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
+    }
+
     getClients() {
         let self = this;
         MongoClient.connect(url, function (err, db) {
@@ -17,14 +36,12 @@ class DBService {
                 .limit(10)
                 .toArray()
                 .then((users) => {
-                    console.log(JSON.stringify(users));
                     return self.res.status(200).json({
                         status: 'success',
                         data: users
                     })
                 })
                 .catch((err) => {
-                    console.log(err);
                     return self.res.status(500).json({
                         status: 'error',
                         error: err
@@ -40,14 +57,37 @@ class DBService {
                 .find(({"_id": id}))
                 .toArray()
                 .then((users) => {
-                    console.log(JSON.stringify(users));
                     return self.res.status(200).json({
                         status: 'success',
                         data: users[0]
                     })
                 })
                 .catch((err) => {
-                    console.log(err);
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
+    }
+
+    searchClient(name){
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+            db.collection('clients')
+                .find({ $or: [
+					{ "surname": {'$regex' : name, '$options' : 'i'} },
+					{ "name": {'$regex' : name, '$options' : 'i'} },
+					{ "tel": {'$regex' : name, '$options' : 'i'} }]},
+					{ sort: {surname: 1, name: 1},limit:10 })
+                .toArray()
+                .then((users) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: users
+                    })
+                })
+                .catch((err) => {
                     return self.res.status(500).json({
                         status: 'error',
                         error: err
@@ -63,14 +103,12 @@ class DBService {
                 .find()
                 .toArray()
                 .then((users) => {
-                    console.log(JSON.stringify(users));
                     return self.res.status(200).json({
                         status: 'success',
                         data: users
                     })
                 })
                 .catch((err) => {
-                    console.log(err);
                     return self.res.status(500).json({
                         status: 'error',
                         error: err

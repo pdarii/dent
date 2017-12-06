@@ -55,13 +55,16 @@ export class ClientsService {
 
 
 
-  public searchClient(name: string) {
-   /* return MOCKCLIENTS.filter( (client) => {
-      const cName = client.name.toLocaleLowerCase();
-      if ( cName.indexOf(name.toLocaleLowerCase()) >= 0) {
-        return client;
-      }
-    });*/
+  public searchClient(name: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/searchClient/${name}`).map((result) => {
+      return result['data'];
+    });
+  }
+
+  public getClientsCount(): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/getClientsCount`).map((result) => {
+      return result['data'];
+    });
   }
 
 

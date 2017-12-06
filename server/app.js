@@ -10,18 +10,29 @@ app.use(function (req, res, next) {
 
 app.get('/api/getClients', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getClients()
+  clientsServiceObj.getClients();
+})
+
+app.get('/api/getClientsCount', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  clientsServiceObj.getClientsCount();
 })
 
 app.get('/api/getClientById/:id', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
   const id = req.params.id;
-  clientsServiceObj.getClientById(id)
+  clientsServiceObj.getClientById(id);
+})
+
+app.get('/api/searchClient/:name', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  const name = req.params.name;
+  clientsServiceObj.searchClient(name);
 })
 
 app.get('/api/getStatistic', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getStatistic()
+  clientsServiceObj.getStatistic();
 })
 
 

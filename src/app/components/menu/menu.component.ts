@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientsService } from './../../services/clients.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  public clientsCount: number;
+  constructor(private clientsService: ClientsService) { }
 
   ngOnInit() {
+    this.getClientsCount();
+  }
 
+  public getClientsCount(): void {
+    this.clientsService.getClientsCount().subscribe((num) => {
+      this.clientsCount = num;
+    });
   }
 
 }
