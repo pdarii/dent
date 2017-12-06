@@ -1,6 +1,9 @@
 export interface Client {
-    id: number;
+    _id: string;
     name: string;
-    lastname: string;
-    phone: string;
+    surname: string;
+    tel: string;
+    clientbirthday: string;
+    clientnum: number;
+    comment: string;
 }

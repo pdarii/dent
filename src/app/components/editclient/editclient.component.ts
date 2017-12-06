@@ -27,12 +27,15 @@ export class EditclientComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap
-    .switchMap( ( params: ParamMap ) => this.clientsService.getClientById(+params.get('id')))
-    .subscribe(client => this.client = client);
+    .switchMap( ( params: ParamMap ) => this.clientsService.getClientById(params.get('id')))
+    .subscribe((client) => {
+      console.log(client);
+      this.client = client;
+    });
   }
 
   public planClient(client: Client): void {
-    this.router.navigate(['/plan', client.id]);
+    this.router.navigate(['/plan', client._id]);
   }
 
 }

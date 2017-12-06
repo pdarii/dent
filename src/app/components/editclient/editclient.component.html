@@ -1,23 +1,23 @@
 <form *ngIf="client">
 
   <div class="form-group">
-    <input type="text" class="form-control" id="clientnum" readonly="readonly" placeholder="Введіть Ім'я" value="Картка №">
+    <input type="text" class="form-control" id="clientnum" readonly="readonly" placeholder="Введіть Ім'я" value="Картка №{{client.clientnum}}">
   </div>
 
   <div class="form-group">
     <input type="text" class="form-control" id="clientname" placeholder="Введіть Ім'я" value="{{client.name}}">
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" id="clientsurname" placeholder="Введіть Фамілію" value="{{client.lastname}}">
+    <input type="text" class="form-control" id="clientsurname" placeholder="Введіть Фамілію" value="{{client.surname}}">
   </div>
   <div class="form-group">
-    <input type="phone" class="form-control" id="clientphone" placeholder="Введіть Телефон" value="{{client.phone}}">
+    <input type="phone" class="form-control" id="clientphone" placeholder="Введіть Телефон" value="{{client.tel}}">
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" id="clientbirthday" placeholder="Введіть дату народження" value="???">
+    <input type="text" class="form-control" id="clientbirthday" placeholder="Введіть дату народження" value="{{client.clientbirthday}}">
   </div>
   <div class="form-group">
-    <textarea class="form-control" id="clientcomment" placeholder="Додаткові данні" rows="3" value="???"></textarea>
+    <textarea class="form-control" id="clientcomment" placeholder="Додаткові данні" rows="3" value="{{client.comment}}"></textarea>
   </div>
 
   <button type="submit" class="btn btn-primary">Зберегти</button>

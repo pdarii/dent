@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Client } from './../interfaces/client';
-import { MOCKCLIENTS } from './mock-clients';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
@@ -14,16 +13,19 @@ export class ClientsService {
   constructor(private http: HttpClient) { }
 
   public getClients(): Observable<any> {
-    console.log('getClients');
-
     return this.http.get('http://localhost:3000/api/getClients').map((result) => {
-     // return result.data;
-      console.log(result);
       return result['data'];
     });
-
-    // return MOCKCLIENTS;
   }
+
+
+  public getClientById(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/getClientById/${id}`).map((result) => {
+      return result['data'];
+    });
+  }
+
+
 
   public getPacients(): Observable<any> {
     console.log('getPacients');
@@ -52,19 +54,14 @@ export class ClientsService {
   }
 
 
-  public getClientById(id: number): Promise<Client> {
-    return Promise.resolve(MOCKCLIENTS.find( (client) => {
-      return client.id === id;
-    }));
-  }
 
-  public searchClient(name: string): Array<Client> {
-    return MOCKCLIENTS.filter( (client) => {
+  public searchClient(name: string) {
+   /* return MOCKCLIENTS.filter( (client) => {
       const cName = client.name.toLocaleLowerCase();
       if ( cName.indexOf(name.toLocaleLowerCase()) >= 0) {
         return client;
       }
-    });
+    });*/
   }
 
 

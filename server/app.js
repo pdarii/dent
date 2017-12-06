@@ -9,12 +9,18 @@ app.use(function (req, res, next) {
 });
 
 app.get('/api/getClients', function (req, res) {
-  let clientsServiceObj = new DBService(req, res)
+  const clientsServiceObj = new DBService(req, res)
   clientsServiceObj.getClients()
 })
 
+app.get('/api/getClientById/:id', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  const id = req.params.id;
+  clientsServiceObj.getClientById(id)
+})
+
 app.get('/api/getStatistic', function (req, res) {
-  let clientsServiceObj = new DBService(req, res)
+  const clientsServiceObj = new DBService(req, res)
   clientsServiceObj.getStatistic()
 })
 

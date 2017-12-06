@@ -14,13 +14,36 @@ class DBService {
         MongoClient.connect(url, function (err, db) {
             db.collection('clients')
                 .find()
-                .limit(5)
+                .limit(10)
                 .toArray()
                 .then((users) => {
                     console.log(JSON.stringify(users));
                     return self.res.status(200).json({
                         status: 'success',
                         data: users
+                    })
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
+    }
+
+    getClientById(id){
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+            db.collection('clients')
+                .find(({"_id": id}))
+                .toArray()
+                .then((users) => {
+                    console.log(JSON.stringify(users));
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: users[0]
                     })
                 })
                 .catch((err) => {
