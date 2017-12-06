@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Location } from '@angular/common';
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -21,7 +22,6 @@ export class EditclientComponent implements OnInit {
 
   constructor(private clientsService: ClientsService,
     private route: ActivatedRoute,
-    private location: Location,
     private router: Router) {
   }
 
@@ -32,6 +32,10 @@ export class EditclientComponent implements OnInit {
       console.log(client);
       this.client = client;
     });
+  }
+
+  public getBirthday() {
+    return moment(this.client.clientbirthday, moment.ISO_8601).format('DD/MM/YYYY');
   }
 
   public planClient(client: Client): void {

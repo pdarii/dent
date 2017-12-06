@@ -1,6 +1,6 @@
-import { Client } from './../interfaces/client';
+// import { Client } from './../interfaces/client';
 
-export const MOCKCLIENTS: Client[] = [
+/* export const MOCKCLIENTS: Client[] = [
     {
         id: 1,
         name: 'Vasja',
@@ -20,4 +20,4 @@ export const MOCKCLIENTS: Client[] = [
         phone: '+380500748190'
     }
 
-];
+];*/

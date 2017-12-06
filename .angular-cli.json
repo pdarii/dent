@@ -22,7 +22,8 @@
         "styles.css"
       ],
       "scripts": [ 
-        "../node_modules/fullcalendar/dist/fullcalendar.js"
+        "../node_modules/fullcalendar/dist/fullcalendar.js",
+        "../node_modules/moment/min/moment.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
