@@ -13,8 +13,16 @@ export class ClientsService {
 
   constructor(private http: HttpClient) { }
 
-  public getClients(): Array<Client> {
-    return MOCKCLIENTS;
+  public getClients(): Observable<any> {
+    console.log('getClients');
+
+    return this.http.get('http://localhost:3000/api/getClients').map((result) => {
+     // return result.data;
+      console.log(result);
+      return result['data'];
+    });
+
+    // return MOCKCLIENTS;
   }
 
   public getPacients(): Observable<any> {

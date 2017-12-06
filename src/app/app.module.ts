@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ClientsService } from './services/clients.service';
+import { D3graphComponent } from './components/d3graph/d3graph.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -38,12 +40,14 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     StatisticComponent,
     PlanclientComponent,
     PlananonymousclientComponent,
+    D3graphComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    HttpClientModule,
   ],
   providers: [ ClientsService ],
   bootstrap: [AppComponent]

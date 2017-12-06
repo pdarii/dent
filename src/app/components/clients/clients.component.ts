@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Client} from './../../interfaces/client';
-import {ClientsService} from './../../services/clients.service';
+import { Client } from './../../interfaces/client';
+import { ClientsService } from './../../services/clients.service';
 
 import { Router } from '@angular/router';
 
@@ -13,17 +13,23 @@ import { Router } from '@angular/router';
 export class ClientsComponent implements OnInit {
 
   private clients: Array<Client>;
+  private showSpinner = true;
 
   constructor(
-
     private clientsService: ClientsService,
     private router: Router) {
+    this.getClients();
+  }
 
-    this.clients = clientsService.getClients();
+  ngOnInit() { }
 
-   }
-
-  ngOnInit() {}
+  public getClients(): void {
+   this.clientsService.getClients().subscribe((clients) => {
+      console.log(clients);
+      this.clients = clients;
+      this.showSpinner = false;
+    });
+  }
 
   public searchClient(name: string): void {
     this.clients = this.clientsService.searchClient(name);
