@@ -8,6 +8,14 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+app.get('/api/addClient/:name/:surname', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  const data = req.params;
+  console.log(data);
+  clientsServiceObj.addClient(id);
+})
+
 app.get('/api/getClients', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
   clientsServiceObj.getClients();

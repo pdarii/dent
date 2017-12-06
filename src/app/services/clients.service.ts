@@ -12,12 +12,20 @@ export class ClientsService {
 
   constructor(private http: HttpClient) { }
 
+  public addClient(data): Observable<any> {
+
+    console.log(data);
+
+    return this.http.get('http://localhost:3000/api/addClient').map((result) => {
+      return result['data'];
+    });
+  }
+
   public getClients(): Observable<any> {
     return this.http.get('http://localhost:3000/api/getClients').map((result) => {
       return result['data'];
     });
   }
-
 
   public getClientById(id: string): Observable<any> {
     return this.http.get(`http://localhost:3000/api/getClientById/${id}`).map((result) => {
@@ -25,10 +33,7 @@ export class ClientsService {
     });
   }
 
-
-
   public getPacients(): Observable<any> {
-    console.log('getPacients');
     return this.http.get('http://localhost:3000/api/getStatistic').map((result) => {
 
     const stat = [];
@@ -45,15 +50,11 @@ export class ClientsService {
     });
     console.log(JSON.stringify(stat));
 
-
-
     console.log(stat);
     // return stat2;
 
     });
   }
-
-
 
   public searchClient(name: string): Observable<any> {
     return this.http.get(`http://localhost:3000/api/searchClient/${name}`).map((result) => {
@@ -66,8 +67,6 @@ export class ClientsService {
       return result['data'];
     });
   }
-
-
 
 
 }

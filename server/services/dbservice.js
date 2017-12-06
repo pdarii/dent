@@ -9,6 +9,44 @@ class DBService {
         this.res = res
     }
 
+
+    /*
+
+    ClientsList.insert({name: clientname,
+				surname: clientsurname,
+				tel:clientphone, 
+				comment:clientcomment,
+				clientnum: clientnum,
+				clientbirthday: jsdate
+            });
+            
+    */
+
+    addClient(data) {
+        /*
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+            db.collection('clients').insert({
+                name: data.clientname,
+                surname: data.clientsurname,
+                tel: data.clientphone,
+                comment: data.clientcomment,
+                clientnum: data.clientnum,
+                clientbirthday: data.jsdate
+            }).then((id) => {
+                return self.res.status(200).json({
+                    status: 'success',
+                    data: id
+                })
+            }).catch((err) => {
+                return self.res.status(500).json({
+                    status: 'error',
+                    error: err
+                })
+            });
+        }); */
+    }
+
     getClientsCount() {
         let self = this;
         MongoClient.connect(url, function (err, db) {
@@ -50,11 +88,11 @@ class DBService {
         });
     }
 
-    getClientById(id){
+    getClientById(id) {
         let self = this;
         MongoClient.connect(url, function (err, db) {
             db.collection('clients')
-                .find(({"_id": id}))
+                .find(({ "_id": id }))
                 .toArray()
                 .then((users) => {
                     return self.res.status(200).json({
@@ -71,15 +109,17 @@ class DBService {
         });
     }
 
-    searchClient(name){
+    searchClient(name) {
         let self = this;
         MongoClient.connect(url, function (err, db) {
             db.collection('clients')
-                .find({ $or: [
-					{ "surname": {'$regex' : name, '$options' : 'i'} },
-					{ "name": {'$regex' : name, '$options' : 'i'} },
-					{ "tel": {'$regex' : name, '$options' : 'i'} }]},
-					{ sort: {surname: 1, name: 1},limit:10 })
+                .find({
+                    $or: [
+                        { "surname": { '$regex': name, '$options': 'i' } },
+                        { "name": { '$regex': name, '$options': 'i' } },
+                        { "tel": { '$regex': name, '$options': 'i' } }]
+                },
+                { sort: { surname: 1, name: 1 }, limit: 10 })
                 .toArray()
                 .then((users) => {
                     return self.res.status(200).json({
