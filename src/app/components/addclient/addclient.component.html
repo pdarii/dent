@@ -1,20 +1,29 @@
-<form>
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="form-group">
-    <input type="text" class="form-control" id="clientname" placeholder="Введіть Ім'я">
+    <input type="text" class="form-control" id="clientname" 
+    placeholder="Введіть Ім'я" formControlName="clientname">
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" id="clientsurname" placeholder="Введіть Фамілію">
+    <input type="text" class="form-control" id="clientsurname" 
+    placeholder="Введіть Фамілію" formControlName="clientsurname">
   </div>
   <div class="form-group">
-    <input type="phone" class="form-control" id="clientphone" placeholder="Введіть Телефон">
+    <input type="phone" class="form-control" id="clientphone" 
+    placeholder="Введіть Телефон" formControlName="clientphone">
   </div>
   <div class="form-group">
-    <input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" type="text" class="form-control" id="clientbirthday" placeholder="Введіть дату народження">
+    <input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" 
+    type="text" class="form-control" id="clientbirthday" 
+    formControlName="clientbirthday" placeholder="Введіть дату народження">
   </div>
   <div class="form-group">
-    <textarea class="form-control" id="clientcomment"  placeholder="Додаткові данні" rows="3"></textarea>
+    <textarea class="form-control" id="clientcomment"  
+    placeholder="Додаткові данні" rows="3" formControlName="clientcomment"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Зберегти</button>
+  <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid">Зберегти</button>
   
 </form>
+
+<p>Form value: {{ clientForm.value | json }}</p>
+<p>Form status: {{ clientForm.status | json }}</p>

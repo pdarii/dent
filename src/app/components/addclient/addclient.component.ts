@@ -6,6 +6,9 @@ import 'moment/locale/uk';
 import { ClientsService } from './../../services/clients.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 @Component({
   selector: 'app-addclient',
   templateUrl: './addclient.component.html',
@@ -13,24 +16,49 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class AddclientComponent implements OnInit {
 
-  locale = 'uk';
+  public clientForm: FormGroup;
+
+  // locale = 'uk';
   bsConfig: Partial<BsDatepickerConfig>;
 
-  constructor(private clientsService: ClientsService) {
-    moment.locale(this.locale);
+  constructor(private clientsService: ClientsService, private fb: FormBuilder) {
+    // moment.locale(this.locale);
+    this.createForm();
   }
 
-  ngOnInit() {
-    console.log(moment.locales());
-    this.bsConfig = Object.assign({}, { locale: this.locale });
-
-  }
-
-  public addClient() {
-    const data = ' ';
-    this.clientsService.addClient(data).subscribe((id) => {
-      console.log(`Client added ${id}`);
+  private createForm() {
+    this.clientForm = this.fb.group({
+      // clientname: ['', Validators.required],
+      // clientsurname: ['', Validators.required],
+      // clientphone: ['', Validators.required],
+      // clientbirthday: ['', Validators.required],
+      clientname: [''],
+      clientsurname: [''],
+      clientphone: [''],
+      clientbirthday: [''],
+      clientcomment: [''],
     });
+  }
+
+
+
+  public ngOnInit() {
+    console.log(moment.locales());
+    // this.bsConfig = Object.assign({}, { locale: this.locale });
+  }
+
+  public addClient(client) {
+    if (client) {
+      client.clientbirthday = moment(client.clientbirthday).toISOString();
+      console.log(client);
+      this.clientsService.addClient(client).subscribe((id) => {
+        console.log(`Client added ${id}`);
+      });
+    }
+  }
+
+  public onSubmit() {
+    this.addClient(this.clientForm.value);
   }
 
 }

@@ -22,18 +22,21 @@ class DBService {
             
     */
 
-    addClient(data) {
-        /*
+    addClient(client) {
+        
         let self = this;
         MongoClient.connect(url, function (err, db) {
             db.collection('clients').insert({
-                name: data.clientname,
-                surname: data.clientsurname,
-                tel: data.clientphone,
-                comment: data.clientcomment,
-                clientnum: data.clientnum,
-                clientbirthday: data.jsdate
+                name: client.clientname,
+                surname: client.clientsurname,
+                tel: client.clientphone,
+                comment: client.clientcomment,
+                clientnum: client.clientnum,
+                clientbirthday: client.jsdate
             }).then((id) => {
+
+                console.log(id);
+                
                 return self.res.status(200).json({
                     status: 'success',
                     data: id
@@ -44,7 +47,7 @@ class DBService {
                     error: err
                 })
             });
-        }); */
+        }); 
     }
 
     getClientsCount() {

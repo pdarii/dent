@@ -1,11 +1,10 @@
-<form *ngIf="client">
-
+<form *ngIf="client" [formGroup]="clientForm" novalidate>
   <div class="form-group">
     <input type="text" class="form-control" id="clientnum" readonly="readonly" placeholder="Введіть Ім'я" value="Картка №{{client.clientnum}}">
   </div>
 
   <div class="form-group">
-    <input type="text" class="form-control" id="clientname" placeholder="Введіть Ім'я" value="{{client.name}}">
+    <input type="text" class="form-control" id="clientname" placeholder="Введіть Ім'я" value="{{client.name}}" formControlName="clientName">
   </div>
   <div class="form-group">
     <input type="text" class="form-control" id="clientsurname" placeholder="Введіть Фамілію" value="{{client.surname}}">

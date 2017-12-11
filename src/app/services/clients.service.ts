@@ -12,11 +12,9 @@ export class ClientsService {
 
   constructor(private http: HttpClient) { }
 
-  public addClient(data): Observable<any> {
-
-    console.log(data);
-
-    return this.http.get('http://localhost:3000/api/addClient').map((result) => {
+  public addClient(client): Observable<any> {
+    console.log(client);
+    return this.http.post('http://localhost:3000/api/addClient', JSON.stringify(client)).map((result) => {
       return result['data'];
     });
   }

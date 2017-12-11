@@ -9,6 +9,7 @@ import 'rxjs/add/operator/switchMap';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as moment from 'moment';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -19,10 +20,13 @@ import * as moment from 'moment';
 export class EditclientComponent implements OnInit {
 
   client: Client;
+  clientForm: FormGroup;
 
   constructor(private clientsService: ClientsService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private fb: FormBuilder) {
+      this.createForm();
   }
 
   ngOnInit() {
@@ -30,6 +34,12 @@ export class EditclientComponent implements OnInit {
     .switchMap( ( params: ParamMap ) => this.clientsService.getClientById(params.get('id')))
     .subscribe((client) => {
       this.client = client;
+    });
+  }
+
+  private createForm() {
+    this.clientForm = this.fb.group({
+      clientName: ['', Validators.required ],
     });
   }
 
