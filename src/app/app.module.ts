@@ -8,7 +8,8 @@ import { ClientsService } from './services/clients.service';
 import { D3graphComponent } from './components/d3graph/d3graph.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap';
 
 
 
@@ -50,7 +51,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AppRoutingModule,
     BsDatepickerModule.forRoot(),
     HttpClientModule,
-    ReactiveFormsModule // <-- #2 add to @NgModule imports
+    ReactiveFormsModule,
+    ModalModule.forRoot()
   ],
   providers: [ ClientsService ],
   bootstrap: [AppComponent]

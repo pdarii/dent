@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import 'moment/locale/ru';
 import 'moment/locale/uk';
 
 import { ClientsService } from './../../services/clients.service';
+import { Client } from './../../interfaces/client';
+
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -15,8 +18,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./addclient.component.css']
 })
 export class AddclientComponent implements OnInit {
+  @ViewChild('autoShownModal') autoShownModal: ModalDirective;
+  isModalShown = false;
 
   public clientForm: FormGroup;
+  public addedClient: Client;
 
   // locale = 'uk';
   bsConfig: Partial<BsDatepickerConfig>;
@@ -26,33 +32,40 @@ export class AddclientComponent implements OnInit {
     this.createForm();
   }
 
+  public showModal(): void {
+    this.isModalShown = true;
+  }
+
+  public hideModal(): void {
+    this.autoShownModal.hide();
+  }
+
+  public onHidden(): void {
+    this.isModalShown = false;
+  }
+
   private createForm() {
     this.clientForm = this.fb.group({
-      // clientname: ['', Validators.required],
-      // clientsurname: ['', Validators.required],
-      // clientphone: ['', Validators.required],
-      // clientbirthday: ['', Validators.required],
-      clientname: [''],
-      clientsurname: [''],
-      clientphone: [''],
-      clientbirthday: [''],
+      clientname: ['', Validators.required],
+      clientsurname: ['', Validators.required],
+      clientphone: ['', Validators.required],
+      clientbirthday: ['', Validators.required],
       clientcomment: [''],
     });
   }
 
-
-
   public ngOnInit() {
-    console.log(moment.locales());
+   // console.log(moment.locales());
     // this.bsConfig = Object.assign({}, { locale: this.locale });
   }
 
   public addClient(client) {
     if (client) {
       client.clientbirthday = moment(client.clientbirthday).toISOString();
-      console.log(client);
-      this.clientsService.addClient(client).subscribe((id) => {
-        console.log(`Client added ${id}`);
+      this.clientsService.addClient(client).subscribe((addedClient: Client) => {
+        this.addedClient = addedClient;
+        console.log(addedClient);
+        this.showModal();
       });
     }
   }

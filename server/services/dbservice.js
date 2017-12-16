@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const url = 'mongodb://127.0.0.1:27017/dent';
+const ObjectId = require('mongodb').ObjectID;
 
 class DBService {
 
@@ -9,45 +10,44 @@ class DBService {
         this.res = res
     }
 
-
-    /*
-
-    ClientsList.insert({name: clientname,
-				surname: clientsurname,
-				tel:clientphone, 
-				comment:clientcomment,
-				clientnum: clientnum,
-				clientbirthday: jsdate
-            });
-            
-    */
-
     addClient(client) {
-        
         let self = this;
         MongoClient.connect(url, function (err, db) {
-            db.collection('clients').insert({
-                name: client.clientname,
-                surname: client.clientsurname,
-                tel: client.clientphone,
-                comment: client.clientcomment,
-                clientnum: client.clientnum,
-                clientbirthday: client.jsdate
-            }).then((id) => {
+            db.collection('clients').findOne({}, { sort: { clientnum: -1 } }
+            ).then((result) => {
+                let lastNumber;
+                if (result) {
+                    lastNumber = (!result.clientnum) ? 0 : result.clientnum;
+                } else {
+                    lastNumber = 0;
+                };
 
-                console.log(id);
-                
-                return self.res.status(200).json({
-                    status: 'success',
-                    data: id
-                })
+                db.collection('clients').insert({
+                    name: client.clientname,
+                    surname: client.clientsurname,
+                    tel: client.clientphone,
+                    comment: client.clientcomment,
+                    clientnum: +lastNumber + 1,
+                    clientbirthday: client.clientbirthday
+                }).then((result) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: result.ops[0]
+                    })
+                }).catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: `Insert error ${err}` 
+                    })
+                });
+
             }).catch((err) => {
                 return self.res.status(500).json({
                     status: 'error',
-                    error: err
+                    error: `Last number error ${err}` 
                 })
             });
-        }); 
+        });
     }
 
     getClientsCount() {
@@ -93,14 +93,25 @@ class DBService {
 
     getClientById(id) {
         let self = this;
+        
         MongoClient.connect(url, function (err, db) {
-            db.collection('clients')
-                .find(({ "_id": id }))
-                .toArray()
-                .then((users) => {
+
+            console.log(id);
+
+            
+            //db.collection('clients').findOne({_id: id},{})
+            db.collection('clients').findOne({
+                $or: [
+                    { "_id": id },
+                    { "_id": ObjectId(id) }
+                ]},{})
+                .then((client) => {
+
+                    console.log(client);
+
                     return self.res.status(200).json({
                         status: 'success',
-                        data: users[0]
+                        data: client
                     })
                 })
                 .catch((err) => {

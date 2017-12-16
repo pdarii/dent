@@ -20,10 +20,21 @@
     <textarea class="form-control" id="clientcomment"  
     placeholder="Додаткові данні" rows="3" formControlName="clientcomment"></textarea>
   </div>
-
   <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid">Зберегти</button>
-  
 </form>
-
-<p>Form value: {{ clientForm.value | json }}</p>
-<p>Form status: {{ clientForm.status | json }}</p>
+<!--<p>Form value: {{ clientForm.value | json }}</p>
+<p>Form status: {{ clientForm.status | json }}</p>-->
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Клієнт успішно доданий</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{addedClient.name}} {{addedClient.surname}}</p>
+      </div>
+    </div>
+  </div>

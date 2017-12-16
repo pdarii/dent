@@ -4,7 +4,7 @@ const app = express()
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -20,9 +20,7 @@ app.listen(3000, function () {
 app.post('/api/addClient', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
   const client = req.params;
-  console.log(req.body);
-  console.log(client);
-  // clientsServiceObj.addClient(client);
+  clientsServiceObj.addClient(req.body);
 })
 
 app.get('/api/getClients', function (req, res) {

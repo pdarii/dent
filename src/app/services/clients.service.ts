@@ -13,8 +13,7 @@ export class ClientsService {
   constructor(private http: HttpClient) { }
 
   public addClient(client): Observable<any> {
-    console.log(client);
-    return this.http.post('http://localhost:3000/api/addClient', JSON.stringify(client)).map((result) => {
+    return this.http.post('http://localhost:3000/api/addClient', client).map((result) => {
       return result['data'];
     });
   }
