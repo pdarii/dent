@@ -18,6 +18,12 @@ export class ClientsService {
     });
   }
 
+  public deleteClient(id): Observable<any> {
+    return this.http.post('http://localhost:3000/api/deleteClient', {id}).map((result) => {
+      return result['data'];
+    });
+  }
+
   public getClients(): Observable<any> {
     return this.http.get('http://localhost:3000/api/getClients').map((result) => {
       return result['data'];

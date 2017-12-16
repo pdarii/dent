@@ -16,6 +16,10 @@ app.listen(3000, function () {
   console.log('DB service listening on port 3000!')
 })
 
+app.post('/api/deleteClient',function(req,res){
+  const clientsServiceObj = new DBService(req, res)
+  clientsServiceObj.deleteClient(req.body.id);
+});
 
 app.post('/api/addClient', function (req, res) {
   const clientsServiceObj = new DBService(req, res)

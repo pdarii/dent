@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Client } from './../../interfaces/client';
 import { ClientsService } from './../../services/clients.service';
@@ -10,6 +10,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as moment from 'moment';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -18,6 +19,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./editclient.component.css']
 })
 export class EditclientComponent implements OnInit {
+  @ViewChild('autoShownModal') autoShownModal: ModalDirective;
+  isModalShown = false;
 
   client: Client;
   clientForm: FormGroup;
@@ -38,18 +41,39 @@ export class EditclientComponent implements OnInit {
     });
   }
 
-  private createForm() {
+  public showModal(): void {
+    this.isModalShown = true;
+  }
+
+  public hideModal(): void {
+    this.autoShownModal.hide();
+  }
+
+  public onHidden(): void {
+    this.isModalShown = false;
+    this.router.navigate(['/clients']);
+  }
+
+  private createForm(): void {
     this.clientForm = this.fb.group({
       clientName: ['', Validators.required ],
     });
   }
 
-  public getBirthday() {
+  public getBirthday(): string {
     return moment(this.client.clientbirthday, moment.ISO_8601).format('DD/MM/YYYY');
   }
 
-  public planClient(client: Client): void {
-    this.router.navigate(['/plan', client._id]);
+  public planClient(id: string): void {
+    this.router.navigate(['/plan', id]);
+  }
+
+  public deleteClient(id: string): void {
+    this.clientsService.deleteClient(id).subscribe((result: any) => {
+      if (result.n > 0) {
+        this.showModal();
+      }
+    });
   }
 
 }

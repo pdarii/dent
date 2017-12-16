@@ -37,17 +37,37 @@ class DBService {
                 }).catch((err) => {
                     return self.res.status(500).json({
                         status: 'error',
-                        error: `Insert error ${err}` 
+                        error: `Insert error ${err}`
                     })
                 });
 
             }).catch((err) => {
                 return self.res.status(500).json({
                     status: 'error',
-                    error: `Last number error ${err}` 
+                    error: `Last number error ${err}`
                 })
             });
         });
+    }
+
+    deleteClient(id) {
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+            db.collection('clients').remove({ _id: ObjectId(id) }, true)
+                .then((result) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: result
+                    })
+                })
+                .catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
+
     }
 
     getClientsCount() {
@@ -74,6 +94,7 @@ class DBService {
         MongoClient.connect(url, function (err, db) {
             db.collection('clients')
                 .find()
+                .sort({ $natural: -1 })
                 .limit(10)
                 .toArray()
                 .then((users) => {
@@ -93,26 +114,14 @@ class DBService {
 
     getClientById(id) {
         let self = this;
-        
         MongoClient.connect(url, function (err, db) {
-
-            console.log(id);
-
-            
-            //db.collection('clients').findOne({_id: id},{})
-            db.collection('clients').findOne({
-                $or: [
-                    { "_id": id },
-                    { "_id": ObjectId(id) }
-                ]},{})
+            db.collection('clients').findOne({ "_id": ObjectId(id) }, {})
                 .then((client) => {
-
-                    console.log(client);
-
                     return self.res.status(200).json({
                         status: 'success',
                         data: client
                     })
+
                 })
                 .catch((err) => {
                     return self.res.status(500).json({
