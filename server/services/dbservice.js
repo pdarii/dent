@@ -28,7 +28,7 @@ class DBService {
                     tel: client.clientphone,
                     comment: client.clientcomment,
                     clientnum: +lastNumber + 1,
-                    clientbirthday: client.clientbirthday
+                    clientbirthday: new Date(client.clientbirthday)
                 }).then((result) => {
                     return self.res.status(200).json({
                         status: 'success',
@@ -47,6 +47,40 @@ class DBService {
                     error: `Last number error ${err}`
                 })
             });
+        });
+    }
+
+    saveClient(client){
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+
+            console.log("--------");
+            console.log(client);
+            console.log("--------");
+            
+            db.collection('clients').update( { _id: ObjectId(client._id) },
+                { $set: {
+                    name: client.clientname,
+                    surname: client.clientsurname,
+                    tel: client.clientphone,
+                    comment: client.clientcomment,
+                    clientbirthday:new Date(client.clientbirthday)
+                } })
+                .then((result) => {
+
+                   // console.log(result);
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: result
+                    })
+                }).catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: `Insert error ${err}`
+                    })
+                });
+
+           
         });
     }
 

@@ -24,6 +24,8 @@ export class EditclientComponent implements OnInit {
 
   client: Client;
   clientForm: FormGroup;
+  modalText: String;
+  clientDeleted = false;
 
   constructor(private clientsService: ClientsService,
     private route: ActivatedRoute,
@@ -51,12 +53,18 @@ export class EditclientComponent implements OnInit {
 
   public onHidden(): void {
     this.isModalShown = false;
-    this.router.navigate(['/clients']);
+    if (this.clientDeleted) {
+      this.router.navigate(['/clients']);
+    }
   }
 
   private createForm(): void {
     this.clientForm = this.fb.group({
-      clientName: ['', Validators.required ],
+      clientname: ['', Validators.required],
+      clientsurname: ['', Validators.required],
+      clientphone: ['', Validators.required],
+      clientbirthday: ['', Validators.required],
+      clientcomment: [''],
     });
   }
 
@@ -71,9 +79,28 @@ export class EditclientComponent implements OnInit {
   public deleteClient(id: string): void {
     this.clientsService.deleteClient(id).subscribe((result: any) => {
       if (result.n > 0) {
+        this.clientDeleted = true;
+        this.modalText = 'Клієнт успішно видалений';
         this.showModal();
       }
     });
+  }
+
+  public onSubmit() {
+    this.saveClient(this.clientForm.value);
+  }
+
+  public saveClient(client) {
+    if (client) {
+      client._id = this.client._id;
+      client.clientbirthday = moment(client.clientbirthday).toISOString();
+      this.clientsService.saveClient(client).subscribe((result) => {
+        if (result.nModified > 0) {
+          this.modalText = 'Клієнт успішно відредагований';
+          this.showModal();
+        }
+      });
+    }
   }
 
 }

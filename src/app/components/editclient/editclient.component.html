@@ -1,39 +1,47 @@
-<form *ngIf="client" [formGroup]="clientForm" novalidate>
+<form *ngIf="client" [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="form-group">
     <input type="text" class="form-control" id="clientnum" readonly="readonly" placeholder="Введіть Ім'я" value="Картка №{{client.clientnum}}">
   </div>
 
   <div class="form-group">
-    <input type="text" class="form-control" id="clientname" placeholder="Введіть Ім'я" value="{{client.name}}" formControlName="clientName">
+    <input type="text" class="form-control" id="clientname" 
+    placeholder="Введіть Ім'я" [(ngModel)]="client.name" formControlName="clientname">
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" id="clientsurname" placeholder="Введіть Фамілію" value="{{client.surname}}">
+    <input type="text" class="form-control" id="clientsurname" formControlName="clientsurname"
+    placeholder="Введіть Фамілію" [(ngModel)]="client.surname">
   </div>
   <div class="form-group">
-    <input type="phone" class="form-control" id="clientphone" placeholder="Введіть Телефон" value="{{client.tel}}">
+    <input type="phone" class="form-control" id="clientphone" formControlName="clientphone"
+    placeholder="Введіть Телефон" [(ngModel)]="client.tel">
   </div>
   <div class="form-group">
-    <input bsDatepicker #dp="bsDatepicker" type="text" class="form-control" id="clientbirthday" placeholder="Введіть дату народження" value="{{getBirthday()}}">
+    <input bsDatepicker #dp="bsDatepicker" type="text" class="form-control" formControlName="clientbirthday"
+    id="clientbirthday" placeholder="Введіть дату народження" [(ngModel)]="client.clientbirthday" value="{{getBirthday()}}">
   </div>
   <div class="form-group">
-    <textarea class="form-control" id="clientcomment" placeholder="Додаткові данні" rows="3" value="{{client.comment}}"></textarea>
+    <textarea class="form-control" id="clientcomment" 
+    placeholder="Додаткові данні" rows="3" value="{{client.comment}}"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Зберегти</button>
-  <button (click)="deleteClient(client._id)" type="submit" class="btn btn-primary">Видалити</button>
+  <button [disabled]="clientForm.invalid" type="submit" class="btn btn-primary">Зберегти</button>
+  <button (click)="deleteClient(client._id)" class="btn btn-primary">Видалити</button>
   <button (click)="planClient(client._id)" class="btn btn-primary">Записати</button>
-  <button type="submit" class="btn btn-primary">Рентгени</button>
+  <button class="btn btn-primary">Рентгени</button>
 
 </form>
 
 <div>timeline...</div>
+
+<p>Form value: {{ clientForm.value | json }}</p>
+<p>Form status: {{ clientForm.status | json }}</p>
 
 
 <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Клієнт успішно видалений</h4>
+        <h4 class="modal-title pull-left">{{modalText}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
