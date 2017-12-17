@@ -139,9 +139,12 @@ class DBService {
 
     getCalendarData(){
         let self = this;
+        let d = new Date();
+        d.setMonth(d.getMonth() - 1);
+        
         MongoClient.connect(url, function (err, db) {
             db.collection('calendar')
-                .find()
+                .find({"datetime":{"$gte":new Date(d)}})
                 .toArray()
                 .then((events) => {
                     return self.res.status(200).json({
