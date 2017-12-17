@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
+import { CalendarModule } from 'ap-angular2-fullcalendar';
 
 
 
@@ -43,7 +44,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     StatisticComponent,
     PlanclientComponent,
     PlananonymousclientComponent,
-    D3graphComponent
+    D3graphComponent,
 
   ],
   imports: [
@@ -52,7 +53,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     BsDatepickerModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    CalendarModule
   ],
   providers: [ ClientsService ],
   bootstrap: [AppComponent]

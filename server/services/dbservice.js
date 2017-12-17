@@ -137,6 +137,27 @@ class DBService {
         });
     }
 
+    getCalendarData(){
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+            db.collection('calendar')
+                .find()
+                .toArray()
+                .then((events) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: events
+                    })
+                })
+                .catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
+    }
+
     getClientById(id) {
         let self = this;
         MongoClient.connect(url, function (err, db) {

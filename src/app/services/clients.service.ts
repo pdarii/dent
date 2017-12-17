@@ -36,6 +36,12 @@ export class ClientsService {
     });
   }
 
+  public getCalendarData(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/getCalendarData').map((result) => {
+      return result['data'];
+    });
+  }
+
   public getClientById(id: string): Observable<any> {
     return this.http.get(`http://localhost:3000/api/getClientById/${id}`).map((result) => {
       return result['data'];
