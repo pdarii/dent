@@ -53,11 +53,6 @@ class DBService {
     saveClient(client){
         let self = this;
         MongoClient.connect(url, function (err, db) {
-
-            console.log("--------");
-            console.log(client);
-            console.log("--------");
-            
             db.collection('clients').update( { _id: ObjectId(client._id) },
                 { $set: {
                     name: client.clientname,
@@ -67,8 +62,6 @@ class DBService {
                     clientbirthday:new Date(client.clientbirthday)
                 } })
                 .then((result) => {
-
-                   // console.log(result);
                     return self.res.status(200).json({
                         status: 'success',
                         data: result
@@ -79,8 +72,6 @@ class DBService {
                         error: `Insert error ${err}`
                     })
                 });
-
-           
         });
     }
 
