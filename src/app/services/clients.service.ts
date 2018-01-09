@@ -43,9 +43,9 @@ export class ClientsService {
   }
 
   public getClientById(id: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/getClientById/${id}`).map((result) => {
-      return result['data'];
-    });
+      return this.http.get(`http://localhost:3000/api/getClientById/${id}`).map((result) => {
+        return result['data'];
+      });
   }
 
   public getPacients(): Observable<any> {
@@ -59,7 +59,7 @@ export class ClientsService {
       const index = item.datetime.substring(0, 7);
       if (stat[index]) {
         stat[index]++;
-      }else {
+      } else {
         stat[index] = 1;
       }
     });
@@ -73,6 +73,12 @@ export class ClientsService {
 
   public searchClient(name: string): Observable<any> {
     return this.http.get(`http://localhost:3000/api/searchClient/${name}`).map((result) => {
+      return result['data'];
+    });
+  }
+
+  public getJobs(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/getJobs').map((result) => {
       return result['data'];
     });
   }

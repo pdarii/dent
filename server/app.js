@@ -65,6 +65,11 @@ app.get('/api/getStatistic', function (req, res) {
   clientsServiceObj.getStatistic();
 })
 
+app.get('/api/getJobs', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  clientsServiceObj.getJobs();
+})
+
 
 
 

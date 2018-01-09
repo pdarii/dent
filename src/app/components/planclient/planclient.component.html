@@ -1,3 +1,29 @@
-<p>
-  planclient works!
-</p>
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <div *ngIf="client" class="form-group">
+    <input type="text" class="form-control" readonly="readonly" value="{{client.name}} {{client.surname}}">
+  </div>
+      
+  <div *ngIf="!client" class="form-group">
+    <input type="phone" class="form-control" id="clientphone" 
+    placeholder="Введіть Телефон" formControlName="clientphone">
+  </div>
+
+  <div class="form-group">
+    <input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" 
+    type="text" class="form-control" id="clientplandate" 
+    formControlName="clientplandate" placeholder="Оберіть дату наступного візиту">
+  </div>
+
+  <div class="form-group">
+      <select id="clientjob" formControlName="clientjob" class="form-control">
+        <option *ngFor="let job of jobs" value="{{ job._id }}">{{ job.job }}</option>
+      </select>
+    </div>
+
+  <div class="form-group">
+    <textarea class="form-control" id="clientcomment"  
+    placeholder="Додаткові данні" rows="3" formControlName="clientcomment"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid">Зберегти</button>
+</form>

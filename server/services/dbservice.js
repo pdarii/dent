@@ -50,17 +50,19 @@ class DBService {
         });
     }
 
-    saveClient(client){
+    saveClient(client) {
         let self = this;
         MongoClient.connect(url, function (err, db) {
-            db.collection('clients').update( { _id: ObjectId(client._id) },
-                { $set: {
-                    name: client.clientname,
-                    surname: client.clientsurname,
-                    tel: client.clientphone,
-                    comment: client.clientcomment,
-                    clientbirthday:new Date(client.clientbirthday)
-                } })
+            db.collection('clients').update({ _id: ObjectId(client._id) },
+                {
+                    $set: {
+                        name: client.clientname,
+                        surname: client.clientsurname,
+                        tel: client.clientphone,
+                        comment: client.clientcomment,
+                        clientbirthday: new Date(client.clientbirthday)
+                    }
+                })
                 .then((result) => {
                     return self.res.status(200).json({
                         status: 'success',
@@ -137,14 +139,48 @@ class DBService {
         });
     }
 
-    getCalendarData(){
+    getJobs() {
+        let self = this;
+        // @TODO забери мок
+        const mock = [
+            {
+                _id: "111",
+                job: "Терапія"
+            },
+            {
+                _id: "222",
+                job: "Ортодонтія"
+            },
+            {
+                _id: "333",
+                job: "Хірургія"
+            },
+            {
+                _id: "555",
+                job: "Ортопедія"
+            },
+            {
+                _id: "666",
+                job: "Дитяча стоматологія"
+            },
+
+        ];
+
+        return self.res.status(200).json({
+            status: 'success',
+            data: mock
+        })
+    }
+
+    getCalendarData() {
         let self = this;
         let d = new Date();
-        d.setMonth(d.getMonth() - 1);
-        
+        // @TODO зміни на 1 місяць
+        d.setMonth(d.getMonth() - 2);
+
         MongoClient.connect(url, function (err, db) {
             db.collection('calendar')
-                .find({"datetime":{"$gte":new Date(d)}})
+                .find({ "datetime": { "$gte": new Date(d) } })
                 .toArray()
                 .then((events) => {
                     return self.res.status(200).json({
@@ -163,6 +199,14 @@ class DBService {
 
     getClientById(id) {
         let self = this;
+
+        if (id === 'new') {
+            return self.res.status(200).json({
+                status: 'success',
+                data: ''
+            })
+        }
+
         MongoClient.connect(url, function (err, db) {
             db.collection('clients').findOne({ "_id": ObjectId(id) }, {})
                 .then((client) => {
