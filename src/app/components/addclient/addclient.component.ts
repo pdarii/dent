@@ -10,6 +10,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidateName, ValidatePhone } from './../../validators/client.validator';
 
 
 @Component({
@@ -46,9 +47,24 @@ export class AddclientComponent implements OnInit {
 
   private createForm() {
     this.clientForm = this.fb.group({
-      clientname: ['', Validators.required],
-      clientsurname: ['', Validators.required],
-      clientphone: ['', Validators.required],
+      clientname: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(15),
+        ValidateName
+      ]],
+      clientsurname: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(15),
+        ValidateName
+      ]],
+      clientphone: ['', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        ValidatePhone
+      ]],
       clientbirthday: ['', Validators.required],
       clientcomment: [''],
     });
