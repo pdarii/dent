@@ -11,6 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateName, ValidatePhone } from './../../validators/client.validator';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class AddclientComponent implements OnInit {
   // locale = 'uk';
   bsConfig: Partial<BsDatepickerConfig>;
 
-  constructor(private clientsService: ClientsService, private fb: FormBuilder) {
+  constructor(private clientsService: ClientsService, private fb: FormBuilder, private router: Router ) {
     // moment.locale(this.locale);
     this.createForm();
   }
@@ -81,7 +82,8 @@ export class AddclientComponent implements OnInit {
       this.clientsService.addClient(client).subscribe((addedClient: Client) => {
         this.addedClient = addedClient;
         console.log(addedClient);
-        this.showModal();
+        // this.showModal();
+        this.router.navigate(['/clients']);
       });
     }
   }

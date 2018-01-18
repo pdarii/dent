@@ -116,6 +116,35 @@ class DBService {
         });
     }
 
+    getBirthdaysCount() {
+      let self = this;
+      let d = new Date();
+      // d.setDate(d.getDate());
+
+      let month = d.getMonth();
+      let date = d.getDate();
+
+
+      MongoClient.connect(url, function (err, db) {
+        db.collection('clients')
+          .find({ "clientbirthday":  /01-19T/ })
+          .toArray()
+          .then((num) => {
+            console.log(num)
+            return self.res.status(200).json({
+              status: 'success',
+              data: num
+            })
+          })
+          .catch((err) => {
+            return self.res.status(500).json({
+              status: 'error',
+              error: err
+            })
+          });
+      });
+    }
+
     getClients() {
         let self = this;
         MongoClient.connect(url, function (err, db) {

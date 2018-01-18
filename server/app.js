@@ -38,6 +38,11 @@ app.get('/api/getClients', function (req, res) {
   clientsServiceObj.getClients();
 })
 
+app.get('/api/getBirthdaysCount', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  clientsServiceObj.getBirthdaysCount();
+})
+
 app.get('/api/getCalendarData', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
   clientsServiceObj.getCalendarData();

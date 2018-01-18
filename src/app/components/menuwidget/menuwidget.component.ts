@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClientsService } from './../../services/clients.service';
 
 @Component({
   selector: 'app-menuwidget',
@@ -8,7 +9,13 @@ import { Router } from '@angular/router';
 })
 export class MenuwidgetComponent implements OnInit {
 
-  constructor(  private router: Router  ) { }
+  birthdaysCount: number;
+
+  constructor(  private router: Router, private clientsService: ClientsService  ) {
+  this.clientsService.getBirthdaysCount().subscribe((birthdaysCount) => {
+      this.birthdaysCount = birthdaysCount;
+    });
+  }
 
   ngOnInit() {
   }

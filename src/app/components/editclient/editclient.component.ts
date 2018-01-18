@@ -21,6 +21,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 export class EditclientComponent implements OnInit {
   @ViewChild('autoShownModal') autoShownModal: ModalDirective;
   isModalShown = false;
+  isEditMode = false;
 
   client: Client;
   clientForm: FormGroup;
@@ -48,6 +49,10 @@ export class EditclientComponent implements OnInit {
 
   public hideModal(): void {
     this.autoShownModal.hide();
+  }
+
+  public edit() {
+    this.isEditMode = true;
   }
 
   public onHidden(): void {
@@ -98,6 +103,7 @@ export class EditclientComponent implements OnInit {
           this.modalText = 'Клієнт успішно відредагований';
           this.showModal();
         }
+        this.isEditMode = false;
       });
     }
   }

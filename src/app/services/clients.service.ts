@@ -36,6 +36,12 @@ export class ClientsService {
     });
   }
 
+  public getBirthdaysCount(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/getBirthdaysCount').map((result) => {
+      return result['data'];
+    });
+  }
+
   public getCalendarData(): Observable<any> {
     return this.http.get('http://localhost:3000/api/getCalendarData').map((result) => {
       return result['data'];
