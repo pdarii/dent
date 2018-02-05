@@ -27,3 +27,6 @@
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid">Зберегти</button>
 </form>
+
+<p>Form value: {{ clientForm.value | json }}</p>
+<p>Form status: {{ clientForm.status | json }}</p>
