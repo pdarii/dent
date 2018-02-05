@@ -56,10 +56,7 @@ export class ClientsService {
 
   public getPacients(): Observable<any> {
     return this.http.get('http://localhost:3000/api/getStatistic').map((result) => {
-
     const stat = [];
-    const stat2 = [];
-
 
     result['data'].forEach((item) => {
       const index = item.datetime.substring(0, 7);
@@ -69,10 +66,7 @@ export class ClientsService {
         stat[index] = 1;
       }
     });
-    console.log(JSON.stringify(stat));
-
-    console.log(stat);
-    // return stat2;
+    return stat;
 
     });
   }

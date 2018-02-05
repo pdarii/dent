@@ -1,19 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { AppRoutingModule } from './app-routing.module';
-
-import { ClientsService } from './services/clients.service';
-import { D3graphComponent } from './components/d3graph/d3graph.component';
-import { HttpClientModule } from '@angular/common/http';
-
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { ModalModule } from 'ngx-bootstrap';
+
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+import { NvD3Module } from 'ng2-nvd3';
+import 'd3';
+import 'nvd3';
+
 import { CalendarModule } from 'ap-angular2-fullcalendar';
 
 
+// Routing
+import { AppRoutingModule } from './app-routing.module';
 
+// Services
+import { ClientsService } from './services/clients.service';
+
+// Components
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ClientsComponent } from './components/clients/clients.component';
@@ -26,7 +35,6 @@ import { MenuwidgetComponent } from './components/menuwidget/menuwidget.componen
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { PlanclientComponent } from './components/planclient/planclient.component';
 import { PlananonymousclientComponent } from './components/plananonymousclient/plananonymousclient.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -43,19 +51,19 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     StatisticComponent,
     PlanclientComponent,
     PlananonymousclientComponent,
-    D3graphComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BsDatepickerModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
-    CalendarModule
+    CalendarModule,
+    NvD3Module,
   ],
   providers: [ ClientsService ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
