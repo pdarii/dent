@@ -35,6 +35,7 @@ import { MenuwidgetComponent } from './components/menuwidget/menuwidget.componen
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { PlanclientComponent } from './components/planclient/planclient.component';
 import { PlananonymousclientComponent } from './components/plananonymousclient/plananonymousclient.component';
+import { ClientsGridComponent } from './components/clients-grid/clients-grid.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { PlananonymousclientComponent } from './components/plananonymousclient/p
     StatisticComponent,
     PlanclientComponent,
     PlananonymousclientComponent,
+    ClientsGridComponent,
 
   ],
   imports: [

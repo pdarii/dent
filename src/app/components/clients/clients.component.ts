@@ -44,14 +44,4 @@ export class ClientsComponent implements OnInit {
     });
 
   }
-
-  public editClient(client: Client): void {
-    this.router.navigate(['/edit', client._id]);
-  }
-
-  public planClient(client: Client): void {
-    this.router.navigate(['/plan', client._id]);
-  }
-
-
 }

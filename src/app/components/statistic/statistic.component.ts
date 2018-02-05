@@ -20,7 +20,6 @@ export class StatisticComponent implements OnInit {
     this.options = CHART_OPTIONS;
   }
 
-
   getClients() {
     this.clientsService.getPacients().subscribe(chartData => {
      this.formatData(chartData);
@@ -43,47 +42,4 @@ export class StatisticComponent implements OnInit {
       }
     }
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-private chartData: Array<any>;
-
-constructor(private clientsService: ClientsService) {}
-
-ngOnInit() {
-
-  this.getClients();
-}
-
-getClients() {
-  console.log('getClients');
-  const data = this.generateData();
-  console.log(data);
-  this.clientsService.getPacients().subscribe(chartData => this.chartData = chartData);
-}
-
-generateData() {
-  const chartData = [];
-  for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
-    chartData.push([
-      `Index ${i}`,
-      Math.floor(Math.random() * 100)
-    ]);
-  }
-  return chartData;
-}
-*/

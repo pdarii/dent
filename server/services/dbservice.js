@@ -117,20 +117,17 @@ class DBService {
     }
 
     getBirthdaysCount() {
-      let self = this;
-      let d = new Date();
-      // d.setDate(d.getDate());
+      const self = this;
+      const d = new Date();
 
-      let month = d.getMonth();
-      let date = d.getDate();
-
+      const month = d.getMonth();
+      const day = d.getDate();
 
       MongoClient.connect(url, function (err, db) {
         db.collection('clients')
-          .find({ "clientbirthday":  /01-19T/ })
+          .find({})
           .toArray()
           .then((num) => {
-            console.log(num)
             return self.res.status(200).json({
               status: 'success',
               data: num

@@ -11,13 +11,33 @@ export class MenuwidgetComponent implements OnInit {
 
   birthdaysCount: number;
 
-  constructor(  private router: Router, private clientsService: ClientsService  ) {
-  this.clientsService.getBirthdaysCount().subscribe((birthdaysCount) => {
-      this.birthdaysCount = birthdaysCount;
+  constructor(  private router: Router, private clientsService: ClientsService  ) {}
+
+  ngOnInit() {
+   this.getBirthdays();
+  }
+
+  private getBirthdays() {
+    this.clientsService.getBirthdaysCount().subscribe((birthdaysCount) => {
+      this.formatCount(birthdaysCount);
     });
   }
 
-  ngOnInit() {
+  private formatCount(birthdaysCount) {
+    const birthdays = [];
+    const d = new Date();
+    const month = d.getMonth();
+    const day = d.getDate();
+
+    birthdaysCount.map(( client ) => {
+
+      if ( (new Date(client.clientbirthday)).getMonth() === month &&
+           (new Date(client.clientbirthday)).getDate() === day ) {
+            birthdays.push(client);
+      }
+    });
+
+    this.birthdaysCount = birthdays.length;
   }
 
   public goBirthdays() {

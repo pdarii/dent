@@ -1,0 +1,6 @@
+<ul class="list-group">
+  <li *ngFor="let client of clients" (click)="editClient(client)" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" >
+      {{ client.surname }} {{ client.name }} {{ client.tel }} 
+      <span class="badge badge-primary badge-pill" (click)="planClient(client)">Записати</span>
+  </li>
+</ul>
