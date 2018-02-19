@@ -1,20 +1,85 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarComponent } from 'ap-angular2-fullcalendar';
 import { ClientsService } from './../../services/clients.service';
-import { CALENDARCONFIG } from './calendar.config';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewChild,
+  TemplateRef,
+  OnInit
+} from '@angular/core';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours
+} from 'date-fns';
+import { Subject } from 'rxjs/Subject';
+
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarDateFormatter
+} from 'angular-calendar';
+
+import { CustomDateFormatter } from './custom-date-formatter.provider';
+import { colors } from './mock';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ]
 })
 export class ClinicCalendarComponent implements OnInit {
-  @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
-  private self = this;
-  private showSpinner = true;
-  private dataisLoaded = false;
-  public config: any;
+  showSpinner = true;
+  locale = 'uk';
+  view = 'month';
+  viewDate: Date = new Date();
+  refresh: Subject<any> = new Subject();
+
+  events: CalendarEvent[] = [
+    {
+      start: subDays(startOfDay(new Date()), 1),
+      end: addDays(new Date(), 1),
+      title: 'A 3 day event',
+      color: colors.red,
+    },
+    {
+      start: startOfDay(new Date()),
+      title: 'An event with no end date',
+      color: colors.yellow,
+    },
+    {
+      start: subDays(endOfMonth(new Date()), 3),
+      end: addDays(endOfMonth(new Date()), 3),
+      title: 'A long event that spans 2 months',
+      color: colors.blue
+    },
+    {
+      start: addHours(startOfDay(new Date()), 2),
+      end: new Date(),
+      title: 'A draggable and resizable event',
+      color: colors.yellow,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true
+      },
+      draggable: true
+    }
+  ];
+
+  activeDayIsOpen = true;
 
   constructor(private clientsService: ClientsService) { }
 
@@ -25,39 +90,38 @@ export class ClinicCalendarComponent implements OnInit {
   private getData() {
     this.showSpinner = true;
     this.clientsService.getCalendarData().subscribe((calendarData) => {
-      this.createCalendarEvents(calendarData);
+      console.log(calendarData);
       this.showSpinner = false;
     });
   }
 
-  public onCalendarInit(event) { }
-
-  public changeCalendarView(view) {
-    this.myCalendar.fullCalendar('changeView', view);
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
+      }
+    }
   }
 
-  private createCalendarEvents(calendarData) {
-    const eventsRes = [];
-    calendarData.map((event) => {
-      // var client = ClientsList.findOne({ _id: event.clientid });
-      eventsRes.push({
-        'client': '{{ Client Name}}',
-        'start': event.datetime,
-        'clientid': event.clientid,
-        'eventid': event._id,
-        'color': '#edd58e',
-        // doc color or past color
-      });
-    });
-    console.log(eventsRes);
-    const config = CALENDARCONFIG;
-    config.events = eventsRes;
-    this.config = config;
+  eventTimesChanged({
+    event,
+    newStart,
+    newEnd
+  }: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    this.handleEvent('Dropped or resized', event);
+    this.refresh.next();
   }
 
-  public goToDay(day) {
-    this.myCalendar.fullCalendar('gotoDate', day);
-    this.myCalendar.fullCalendar('changeView', 'agendaDay');
+  handleEvent(action: string, event: CalendarEvent): void {
+    console.log({ event, action });
   }
 
 }

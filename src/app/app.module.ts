@@ -1,20 +1,26 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ModalModule } from 'ngx-bootstrap';
+// Ukrainian locale for calendar
+import { registerLocaleData } from '@angular/common';
+import localeUk from '@angular/common/locales/uk';
+registerLocaleData(localeUk);
 
+// Bootstrap
+import { ModalModule } from 'ngx-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+// Chart
 import { NvD3Module } from 'ng2-nvd3';
 import 'd3';
 import 'nvd3';
 
-import { CalendarModule } from 'ap-angular2-fullcalendar';
-
+// Calendar
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'angular-calendar';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -57,12 +63,13 @@ import { ClientsGridComponent } from './components/clients-grid/clients-grid.com
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
-    CalendarModule,
+    CalendarModule.forRoot(),
     NvD3Module,
   ],
   providers: [ ClientsService ],
