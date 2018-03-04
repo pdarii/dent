@@ -12,6 +12,7 @@ registerLocaleData(localeUk);
 // Bootstrap
 import { ModalModule } from 'ngx-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 // Chart
 import { NvD3Module } from 'ng2-nvd3';
@@ -42,6 +43,8 @@ import { StatisticComponent } from './components/statistic/statistic.component';
 import { PlanclientComponent } from './components/planclient/planclient.component';
 import { PlananonymousclientComponent } from './components/plananonymousclient/plananonymousclient.component';
 import { ClientsGridComponent } from './components/clients-grid/clients-grid.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 
 @NgModule({
@@ -59,6 +62,8 @@ import { ClientsGridComponent } from './components/clients-grid/clients-grid.com
     PlanclientComponent,
     PlananonymousclientComponent,
     ClientsGridComponent,
+    SpinnerComponent,
+    TimelineComponent,
 
   ],
   imports: [
@@ -68,6 +73,7 @@ import { ClientsGridComponent } from './components/clients-grid/clients-grid.com
     HttpClientModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     CalendarModule.forRoot(),
     NvD3Module,

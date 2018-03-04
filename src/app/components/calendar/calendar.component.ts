@@ -47,8 +47,9 @@ export class ClinicCalendarComponent implements OnInit {
   view = 'month';
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
-
-  events: CalendarEvent[] = [
+  public calendarEvents: CalendarEvent[];
+  events: CalendarEvent[] = [];
+  eventss: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -85,13 +86,27 @@ export class ClinicCalendarComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+   // console.log(this.events);
   }
 
   private getData() {
     this.showSpinner = true;
     this.clientsService.getCalendarData().subscribe((calendarData) => {
+    this.events = calendarData.map((event) => {
+      return {
+        start: new Date(event.datetime),
+        end: new Date(event.datetime),
+        title: `${event.clientid} ${event.jobdone}`,
+        color: colors.red,
+
+      };
+
+    });
       console.log(calendarData);
+      console.log(this.events);
       this.showSpinner = false;
+      this.refresh.next();
+
     });
   }
 

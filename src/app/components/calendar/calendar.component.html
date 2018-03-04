@@ -53,8 +53,7 @@
 </div>
 <br>
 
-
-<div [ngSwitch]="view">
+<div [ngSwitch]="view" *ngIf="events">
   <mwl-calendar-month-view
     *ngSwitchCase="'month'"
     [@.disabled]="true"
@@ -90,3 +89,6 @@
     (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-day-view>
 </div>
+
+
+<app-spinner [showSpinner]="showSpinner"></app-spinner>

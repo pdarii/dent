@@ -11,17 +11,19 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { TimepickerConfig } from 'ngx-bootstrap/timepicker';
 
+import { getTimepickerConfig } from './planclient.constants';
 
 import * as moment from 'moment';
 import 'moment/locale/ru';
 import 'moment/locale/uk';
 
-
 @Component({
   selector: 'app-planclient',
   templateUrl: './planclient.component.html',
-  styleUrls: ['./planclient.component.css']
+  styleUrls: ['./planclient.component.css'],
+  providers: [{ provide: TimepickerConfig, useFactory: getTimepickerConfig }]
 })
 export class PlanclientComponent implements OnInit {
 
@@ -48,6 +50,7 @@ export class PlanclientComponent implements OnInit {
     this.clientForm = this.fb.group({
       clientphone: ['', Validators.required],
       clientplandate: ['', Validators.required],
+      clientplantime: ['', Validators.required],
       clientcomment: [''],
       clientjob: [''],
     });
