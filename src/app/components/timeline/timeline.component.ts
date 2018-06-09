@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {ClientsService} from '../../services/clients.service';
+import {Jobs} from '../../interfaces/client';
 
 @Component({
   selector: 'app-timeline',
@@ -9,9 +11,39 @@ export class TimelineComponent implements OnInit {
 
   @Input() clientId: string;
 
-  constructor() { }
+  public timelineEvents: any;
+  public doctors: any;
+
+  constructor(
+    private clientsService: ClientsService,
+  ) { }
 
   ngOnInit() {
+    this.getTimelineEvents();
+    this.getDoctors();
   }
+
+  private getTimelineEvents() {
+    this.clientsService.getTimelineEvents(this.clientId).subscribe((timelineEvents: any) => {
+      this.timelineEvents = timelineEvents;
+      console.log(timelineEvents);
+    });
+  }
+
+  private getDoctors() {
+    this.clientsService.getDoctors().subscribe((doctors: any) => {
+      this.doctors = doctors;
+      console.log(doctors);
+
+    });
+  }
+
+  public getDoctorNameById(id) {
+    const doc = this.doctors.filter((doctor) => doctor._id === id);
+    console.log(doc)
+    return doc && doc.length ? `${doc[0].name} ${doc[0].surname}` : '';
+  }
+
+
 
 }

@@ -36,6 +36,12 @@ export class ClientsService {
     });
   }
 
+  public getDoctors(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/getDoctors').map((result) => {
+      return result['data'];
+    });
+  }
+
   public getBirthdaysCount(): Observable<any> {
     return this.http.get('http://localhost:3000/api/getBirthdaysCount').map((result) => {
       return result['data'];
@@ -89,5 +95,11 @@ export class ClientsService {
     });
   }
 
+
+  public getTimelineEvents(id: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/getTimelineEvents/${id}`).map((result) => {
+      return result['data'];
+    });
+  }
 
 }

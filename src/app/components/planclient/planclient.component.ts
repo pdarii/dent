@@ -30,9 +30,14 @@ export class PlanclientComponent implements OnInit {
   public clientForm: FormGroup;
   public client: Client;
   private plan: Plan;
+
   public jobs: Jobs;
+  // @TODO interfaces
+  public doctors: any;
+
   public clientplantime: Date = new Date();
-  bsConfig: Partial<BsDatepickerConfig>;
+  public bsConfig: Partial<BsDatepickerConfig>;
+  public showSpinner = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +47,9 @@ export class PlanclientComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log(this.client)
     this.getJobs();
+    this.getDoctors();
     this.initParamsSubscription();
   }
 
@@ -53,6 +60,7 @@ export class PlanclientComponent implements OnInit {
       clientplantime: ['', Validators.required],
       clientcomment: [''],
       clientjob: [''],
+      doctor: [''],
     });
   }
 
@@ -72,17 +80,31 @@ export class PlanclientComponent implements OnInit {
   }
 
   private initParamsSubscription() {
+    this.showSpinner = true;
     this.route.paramMap
     .switchMap( ( params: ParamMap ) => this.clientsService.getClientById(params.get('id')))
     .subscribe((client) => {
+      console.log(client)
       this.client = client;
+      this.showSpinner = false;
     });
   }
 
   private getJobs() {
+    this.showSpinner = true;
     this.clientsService.getJobs().subscribe((jobs: Jobs) => {
       this.jobs = jobs;
+      this.showSpinner = false;
     });
+  }
+
+  private getDoctors() {
+    this.showSpinner = true;
+    this.clientsService.getDoctors().subscribe((doctors) => {
+      this.doctors = doctors;
+      this.showSpinner = false;
+    });
+
   }
 
 }

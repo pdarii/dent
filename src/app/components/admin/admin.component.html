@@ -1,0 +1,13 @@
+<div class="row" *ngIf="!showSpinner">
+  <ul>
+    <li *ngFor="let doctor of doctors">{{doctor.name}} {{doctor.surname}}</li>
+  </ul>
+</div>
+
+<div class="row" *ngIf="!showSpinner">
+  <ul>
+    <li *ngFor="let job of jobs">{{job.label}} {{job.price}}</li>
+  </ul>
+</div>
+
+<app-spinner [showSpinner]="showSpinner"></app-spinner>

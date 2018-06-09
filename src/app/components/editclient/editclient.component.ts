@@ -55,6 +55,10 @@ export class EditclientComponent implements OnInit {
     this.isEditMode = true;
   }
 
+  public resetForm() {
+    this.isEditMode = false;
+  }
+
   public onHidden(): void {
     this.isModalShown = false;
     if (this.clientDeleted) {

@@ -27,13 +27,14 @@
 
   <div *ngIf="isEditMode">
     <button [disabled]="clientForm.invalid" type="submit" class="btn btn-primary">Зберегти</button>
+    <button (click)="resetForm()" class="btn btn-primary">Відміна</button>
     <button (click)="deleteClient(client._id)" class="btn btn-primary">Видалити</button>
   </div>
 
   <div *ngIf="!isEditMode">
     <button (click)="edit()" class="btn btn-primary">Редагувати</button>
     <button (click)="planClient(client._id)" class="btn btn-primary">Записати</button>
-    <button class="btn btn-primary">Рентгени</button>
+    <button class="btn btn-primary" disabled>Рентгени</button>
   </div>
 
 </form>
@@ -41,9 +42,6 @@
   <app-timeline [clientId]="client._id"></app-timeline>
 
 </div>
-<!-- <p>Form value: {{ clientForm.value | json }}</p>
-<p>Form status: {{ clientForm.status | json }}</p> -->
-
 
 <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">

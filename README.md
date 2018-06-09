@@ -42,8 +42,22 @@
 - [x] ~~Пофіксити баг на вьюшці клієнта - коли не увімкнений режим режагування і спрацьовує клік на календарі~~
 - [x] ~~Винести лодінг в окремий компонент~~
 - [x] ~~Виніс таймлайн в окремий комонент~~
+- [x] ~~Додав вибірку лікарів з бази для планклієнт~~
+- [x] ~~Додав вибірку робіт з бази для планклієнт~~
+- [x] ~~Додав кнопку відміна при редагуванні клієнту~~
+- [x] ~~Додай Відображення Історії по клієнту~~
 
 
+- [ ]  Пофіксь баг з сортуванням історії клієнту по датам
+
+- [ ]  Забери авто підстановку на всі інпути
+- [ ]  Додай Конфьорм на виделення клієнту
+- [ ]  Implement Redux
+
+
+- [ ]  Заміни всі ANY на інтерфейси
+
+- [ ]  Баг з телефоном на вьюшці планклієнт 
 
 - [ ]  Об'єднав форми записати клієнта та записати анонімного клієнта 
 
@@ -181,6 +195,7 @@
 - [ ] Ускладни валідатори для форми 
 - [ ] Порефакторити компонент з графіком
 - [ ] Додай зв*язки клієнтів ( тато, мама )
+- [ ] Заміни всі ANY на інтерфейси
 
 
 
@@ -265,3 +280,45 @@ db.doctors.find().forEach( function (x) {
     db.doctors.save(x);
 });
 ```
+
+
+
+
+<!-- 
+db.clients.find().forEach( function (client) { 
+
+  	old_client_id = client._id;
+
+	db.clients.remove({_id:client._id},true);
+
+	new_client_id = ObjectId();
+
+    client._id = new_client_id;
+    db.clients.save(client);
+
+	db.calendar.find({ clientid: old_client_id }).forEach( function (calendar) { 
+		calendar.clientid = new_client_id;
+		db.calendar.save(calendar);
+	});
+
+});
+
+
+
+db.doctors.find().forEach( function (doctor) { 
+
+	old_doctor_id = doctor._id;
+  	db.doctors.remove({_id:old_doctor_id},true);
+
+	new_doctor_id = ObjectId();
+    doctor._id = new_doctor_id;
+    db.doctors.save(doctor);
+
+	db.calendar.find({ doctor: old_doctor_id }).forEach( function (calendar) { 
+		calendar.doctor = new_doctor_id;
+		db.calendar.save(calendar);
+	});
+
+}); -->
+
+

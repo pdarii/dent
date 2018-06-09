@@ -38,6 +38,11 @@ app.get('/api/getClients', function (req, res) {
   clientsServiceObj.getClients();
 })
 
+app.get('/api/getDoctors', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  clientsServiceObj.getDoctors();
+})
+
 app.get('/api/getBirthdaysCount', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
   clientsServiceObj.getBirthdaysCount();
@@ -74,6 +79,14 @@ app.get('/api/getJobs', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
   clientsServiceObj.getJobs();
 })
+
+app.get('/api/getTimelineEvents/:id', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  const id = req.params.id;
+  clientsServiceObj.getTimelineEvents(id);
+})
+
+
 
 
 

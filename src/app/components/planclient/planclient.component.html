@@ -1,10 +1,10 @@
-<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate autocomplete="on">
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate autocomplete="on" *ngIf="!showSpinner">
 
   <div *ngIf="client" class="form-group">
     <input type="text" class="form-control" readonly="readonly" value="{{client.name}} {{client.surname}}">
   </div>
       
-  <div *ngIf="!client" class="form-group">
+  <div [class.hidden]="client" class="form-group">
     <input type="phone" class="form-control" id="clientphone" 
     placeholder="Введіть Телефон" formControlName="clientphone">
   </div>
@@ -23,7 +23,13 @@
 
   <div class="form-group">
       <select id="clientjob" formControlName="clientjob" class="form-control">
-        <option *ngFor="let job of jobs" value="{{ job._id }}">{{ job.job }}</option>
+        <option *ngFor="let job of jobs" value="{{ job._id }}">{{ job.label }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <select id="doctor" formControlName="doctor" class="form-control">
+        <option *ngFor="let doctor of doctors" value="{{ doctor._id }}">{{ doctor.name }} {{ doctor.surname }}</option>
       </select>
     </div>
 
@@ -33,6 +39,8 @@
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid">Зберегти</button>
 </form>
+
+<app-spinner [showSpinner]="showSpinner"></app-spinner>
 
 <p>Form value: {{ clientForm.value | json }}</p>
 <p>Form status: {{ clientForm.status | json }}</p>

@@ -41,10 +41,10 @@ import { BirthdaysComponent } from './components/birthdays/birthdays.component';
 import { MenuwidgetComponent } from './components/menuwidget/menuwidget.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { PlanclientComponent } from './components/planclient/planclient.component';
-import { PlananonymousclientComponent } from './components/plananonymousclient/plananonymousclient.component';
 import { ClientsGridComponent } from './components/clients-grid/clients-grid.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 @NgModule({
@@ -60,10 +60,10 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     MenuwidgetComponent,
     StatisticComponent,
     PlanclientComponent,
-    PlananonymousclientComponent,
     ClientsGridComponent,
     SpinnerComponent,
     TimelineComponent,
+    AdminComponent,
 
   ],
   imports: [

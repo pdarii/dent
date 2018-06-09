@@ -165,37 +165,71 @@ class DBService {
         });
     }
 
+    getDoctors() {
+        let self = this;
+        MongoClient.connect(url, function (err, db) {
+            db.collection('doctors')
+                .find()
+                .sort({ $natural: -1 })
+                .toArray()
+                .then((doctors) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: doctors
+                    })
+                })
+                .catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
+    }
+
     getJobs() {
         let self = this;
-        // @TODO забери мок
-        const mock = [
-            {
-                _id: "111",
-                job: "Терапія"
-            },
-            {
-                _id: "222",
-                job: "Ортодонтія"
-            },
-            {
-                _id: "333",
-                job: "Хірургія"
-            },
-            {
-                _id: "555",
-                job: "Ортопедія"
-            },
-            {
-                _id: "666",
-                job: "Дитяча стоматологія"
-            },
+        MongoClient.connect(url, function (err, db) {
+            db.collection('jobsList')
+                .find()
+                .sort({ $natural: -1 })
+                .toArray()
+                .then((jobs) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: jobs
+                    })
+                })
+                .catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
+    }
 
-        ];
+  getTimelineEvents(id) {
+        let self = this;
 
-        return self.res.status(200).json({
-            status: 'success',
-            data: mock
-        })
+        MongoClient.connect(url, function (err, db) {
+            db.collection('calendar')
+                .find({ "clientid": ObjectId(id) })
+                .sort({ $natural: -1 })
+                .toArray()
+                .then((events) => {
+                    return self.res.status(200).json({
+                        status: 'success',
+                        data: events
+                    })
+                })
+                .catch((err) => {
+                    return self.res.status(500).json({
+                        status: 'error',
+                        error: err
+                    })
+                });
+        });
     }
 
     getCalendarData() {

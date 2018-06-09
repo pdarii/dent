@@ -11,7 +11,7 @@ import { BirthdaysComponent } from './components/birthdays/birthdays.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 
 import { PlanclientComponent } from './components/planclient/planclient.component';
-import { PlananonymousclientComponent } from './components/plananonymousclient/plananonymousclient.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 
@@ -25,7 +25,7 @@ const routes: Routes = [
     { path: 'plan/:id', component: PlanclientComponent },
     { path: 'birthdays', component: BirthdaysComponent },
     { path: 'werelongago', component: LongagoComponent },
-    { path: 'plananonymous', component: PlananonymousclientComponent },
+    { path: 'admin', component: AdminComponent },
 ];
 
 @NgModule({
