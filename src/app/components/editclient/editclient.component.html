@@ -28,7 +28,7 @@
   <div *ngIf="isEditMode">
     <button [disabled]="clientForm.invalid" type="submit" class="btn btn-primary">Зберегти</button>
     <button (click)="resetForm()" class="btn btn-primary">Відміна</button>
-    <button (click)="deleteClient(client._id)" class="btn btn-primary">Видалити</button>
+    <button (click)="deleteClient(client._id)" class="btn btn-danger">Видалити</button>
   </div>
 
   <div *ngIf="!isEditMode">

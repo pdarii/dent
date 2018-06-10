@@ -209,7 +209,7 @@ class DBService {
         });
     }
 
-  getTimelineEvents(id) {
+    getTimelineEvents(id) {
         let self = this;
 
         MongoClient.connect(url, function (err, db) {
@@ -239,15 +239,24 @@ class DBService {
         d.setMonth(d.getMonth() - 2);
 
         MongoClient.connect(url, function (err, db) {
-            db.collection('calendar')
-                .find({ "datetime": { "$gte": new Date(d) } })
-                .toArray()
-                .then((events) => {
-                    return self.res.status(200).json({
-                        status: 'success',
-                        data: events
-                    })
-                })
+        // @TODO REWRITE THIS AS FAST AS YOU CAN
+          db.collection('calendar').aggregate([
+            {
+              $lookup:
+                {
+                  from: "clients",
+                  localField: "clientid",
+                  foreignField: "_id",
+                  as: "client"
+                }
+            }
+          ]) .toArray()
+              .then((events) => {
+                return self.res.status(200).json({
+                              status: 'success',
+                              data: events
+                          })
+              })
                 .catch((err) => {
                     return self.res.status(500).json({
                         status: 'error',

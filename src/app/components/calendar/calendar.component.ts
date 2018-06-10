@@ -96,7 +96,7 @@ export class ClinicCalendarComponent implements OnInit {
       return {
         start: new Date(event.datetime),
         end: new Date(event.datetime),
-        title: `${event.clientid} ${event.jobdone}`,
+        title: `${this.getClientName(event.client)} / ${event.jobdone}`,
         color: colors.red,
 
       };
@@ -108,6 +108,10 @@ export class ClinicCalendarComponent implements OnInit {
       this.refresh.next();
 
     });
+  }
+
+  private getClientName(client) {
+    return client.length ? `${client[0].name} ${client[0].surname}` : '';
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
