@@ -4,28 +4,24 @@ import { ClientsService } from './../../services/clients.service';
 
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+  styleUrls: ['./clients.component.css'],
 })
 export class ClientsComponent implements OnInit {
+  public clients: Array<Client>;
+  public showSpinner = false;
 
-  private clients: Array<Client>;
-  private showSpinner = false;
-
-  constructor(
-    private clientsService: ClientsService,
-    private router: Router) {}
+  constructor(private clientsService: ClientsService, private router: Router) {}
 
   ngOnInit() {
     this.getClients();
-   }
+  }
 
   public getClients(): void {
     this.showSpinner = true;
-    this.clientsService.getClients().subscribe((clients) => {
+    this.clientsService.getClients().subscribe(clients => {
       this.clients = clients;
       this.showSpinner = false;
     });
@@ -37,11 +33,10 @@ export class ClientsComponent implements OnInit {
       return;
     }
     this.showSpinner = true;
-    this.clientsService.searchClient(name).subscribe((clients) => {
+    this.clientsService.searchClient(name).subscribe(clients => {
       console.log(clients);
       this.clients = clients;
       this.showSpinner = false;
     });
-
   }
 }

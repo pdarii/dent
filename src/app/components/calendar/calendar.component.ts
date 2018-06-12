@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import {
   startOfDay,
@@ -14,7 +14,7 @@ import {
   endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours
+  addHours,
 } from 'date-fns';
 import { Subject } from 'rxjs/Subject';
 
@@ -22,11 +22,12 @@ import {
   CalendarEvent,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
-  CalendarDateFormatter
+  CalendarDateFormatter,
 } from 'angular-calendar';
 
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { colors } from './mock';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-calendar',
@@ -36,12 +37,11 @@ import { colors } from './mock';
   providers: [
     {
       provide: CalendarDateFormatter,
-      useClass: CustomDateFormatter
-    }
-  ]
+      useClass: CustomDateFormatter,
+    },
+  ],
 })
 export class ClinicCalendarComponent implements OnInit {
-
   showSpinner = true;
   locale = 'uk';
   view = 'month';
@@ -65,7 +65,7 @@ export class ClinicCalendarComponent implements OnInit {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
-      color: colors.blue
+      color: colors.blue,
     },
     {
       start: addHours(startOfDay(new Date()), 2),
@@ -74,39 +74,36 @@ export class ClinicCalendarComponent implements OnInit {
       color: colors.yellow,
       resizable: {
         beforeStart: true,
-        afterEnd: true
+        afterEnd: true,
       },
-      draggable: true
-    }
+      draggable: true,
+    },
   ];
 
   activeDayIsOpen = true;
 
-  constructor(private clientsService: ClientsService) { }
+  constructor(private clientsService: ClientsService) {}
 
   ngOnInit() {
     this.getData();
-   // console.log(this.events);
+    // console.log(this.events);
   }
 
   private getData() {
     this.showSpinner = true;
-    this.clientsService.getCalendarData().subscribe((calendarData) => {
-    this.events = calendarData.map((event) => {
-      return {
-        start: new Date(event.datetime),
-        end: new Date(event.datetime),
-        title: `${this.getClientName(event.client)} / ${event.jobdone}`,
-        color: colors.red,
-
-      };
-
-    });
-      console.log(calendarData);
-      console.log(this.events);
+    this.clientsService.getCalendarData().subscribe(calendarData => {
+      this.events = calendarData.map(event => {
+        return {
+          start: new Date(event.datetime),
+          end: new Date(event.datetime),
+          title: `${this.getClientName(event.client)} / ${
+            event.jobdone
+          } / ${moment(event.datetime).format('HH:mm DD/MM/YYYY')}`,
+          color: colors.red,
+        };
+      });
       this.showSpinner = false;
       this.refresh.next();
-
     });
   }
 
@@ -131,7 +128,7 @@ export class ClinicCalendarComponent implements OnInit {
   eventTimesChanged({
     event,
     newStart,
-    newEnd
+    newEnd,
   }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
@@ -142,5 +139,4 @@ export class ClinicCalendarComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     console.log({ event, action });
   }
-
 }

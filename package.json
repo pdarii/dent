@@ -7,7 +7,8 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --type-check",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.{ts,js,scss}\"",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -31,6 +32,7 @@
     "ng2-nvd3": "^2.0.0",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "popper.js": "^1.12.9",
+    "prettier": "^1.13.5",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
