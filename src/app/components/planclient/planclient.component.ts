@@ -23,10 +23,9 @@ import 'moment/locale/uk';
   selector: 'app-planclient',
   templateUrl: './planclient.component.html',
   styleUrls: ['./planclient.component.css'],
-  providers: [{ provide: TimepickerConfig, useFactory: getTimepickerConfig }]
+  providers: [{ provide: TimepickerConfig, useFactory: getTimepickerConfig }],
 })
 export class PlanclientComponent implements OnInit {
-
   public clientForm: FormGroup;
   public client: Client;
   private plan: Plan;
@@ -42,12 +41,13 @@ export class PlanclientComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private clientsService: ClientsService,
-    private fb: FormBuilder ) {
+    private fb: FormBuilder
+  ) {
     this.createForm();
-   }
+  }
 
   ngOnInit() {
-    console.log(this.client)
+    console.log(this.client);
     this.getJobs();
     this.getDoctors();
     this.initParamsSubscription();
@@ -82,29 +82,37 @@ export class PlanclientComponent implements OnInit {
   private initParamsSubscription() {
     this.showSpinner = true;
     this.route.paramMap
-    .switchMap( ( params: ParamMap ) => this.clientsService.getClientById(params.get('id')))
-    .subscribe((client) => {
-      console.log(client)
-      this.client = client;
-      this.showSpinner = false;
-    });
+      .switchMap((params: ParamMap) =>
+        this.clientsService.getClientById(params.get('id'))
+      )
+      .subscribe(client => {
+        this.client = client;
+        this.clientForm.patchValue({
+          clientphone: client.tel,
+        });
+        this.showSpinner = false;
+      });
   }
 
   private getJobs() {
     this.showSpinner = true;
     this.clientsService.getJobs().subscribe((jobs: Jobs) => {
       this.jobs = jobs;
+      this.clientForm.patchValue({
+        clientjob: jobs[0]._id,
+      });
       this.showSpinner = false;
     });
   }
 
   private getDoctors() {
     this.showSpinner = true;
-    this.clientsService.getDoctors().subscribe((doctors) => {
+    this.clientsService.getDoctors().subscribe(doctors => {
       this.doctors = doctors;
+      this.clientForm.patchValue({
+        doctor: doctors[0]._id,
+      });
       this.showSpinner = false;
     });
-
   }
-
 }

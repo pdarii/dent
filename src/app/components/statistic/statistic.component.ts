@@ -7,8 +7,11 @@ declare let d3: any;
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
-  styleUrls: ['./statistic.component.css', './../../../../node_modules/nvd3/build/nv.d3.css', ],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: [
+    './statistic.component.css',
+    './../../../../node_modules/nvd3/build/nv.d3.css',
+  ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class StatisticComponent implements OnInit {
   public options;
@@ -22,7 +25,7 @@ export class StatisticComponent implements OnInit {
 
   getClients() {
     this.clientsService.getPacients().subscribe(chartData => {
-     this.formatData(chartData);
+      this.formatData(chartData);
     });
   }
 
@@ -31,13 +34,13 @@ export class StatisticComponent implements OnInit {
       {
         key: 'Данні по клієнтам',
         values: [],
-      }
+      },
     ];
     for (const key in chartData) {
       if (chartData[key]) {
         this.data[0].values.push({
-          'label': key,
-          'value': chartData[key],
+          label: key,
+          value: chartData[key],
         });
       }
     }

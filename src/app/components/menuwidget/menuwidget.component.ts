@@ -5,20 +5,19 @@ import { ClientsService } from './../../services/clients.service';
 @Component({
   selector: 'app-menuwidget',
   templateUrl: './menuwidget.component.html',
-  styleUrls: ['./menuwidget.component.css']
+  styleUrls: ['./menuwidget.component.css'],
 })
 export class MenuwidgetComponent implements OnInit {
-
   birthdaysCount: number;
 
-  constructor(  private router: Router, private clientsService: ClientsService  ) {}
+  constructor(private router: Router, private clientsService: ClientsService) {}
 
   ngOnInit() {
-   this.getBirthdays();
+    this.getBirthdays();
   }
 
   private getBirthdays() {
-    this.clientsService.getBirthdaysCount().subscribe((birthdaysCount) => {
+    this.clientsService.getBirthdaysCount().subscribe(birthdaysCount => {
       this.formatCount(birthdaysCount);
     });
   }
@@ -29,11 +28,12 @@ export class MenuwidgetComponent implements OnInit {
     const month = d.getMonth();
     const day = d.getDate();
 
-    birthdaysCount.map(( client ) => {
-
-      if ( (new Date(client.clientbirthday)).getMonth() === month &&
-           (new Date(client.clientbirthday)).getDate() === day ) {
-            birthdays.push(client);
+    birthdaysCount.map(client => {
+      if (
+        new Date(client.clientbirthday).getMonth() === month &&
+        new Date(client.clientbirthday).getDate() === day
+      ) {
+        birthdays.push(client);
       }
     });
 
@@ -47,5 +47,4 @@ export class MenuwidgetComponent implements OnInit {
   public goLongAgo() {
     this.router.navigate(['/werelongago']);
   }
-
 }

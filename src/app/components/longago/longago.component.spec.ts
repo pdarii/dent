@@ -8,9 +8,8 @@ describe('LongagoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LongagoComponent ]
-    })
-    .compileComponents();
+      declarations: [LongagoComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

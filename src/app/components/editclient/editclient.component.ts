@@ -12,11 +12,10 @@ import * as moment from 'moment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-
 @Component({
   selector: 'app-editclient',
   templateUrl: './editclient.component.html',
-  styleUrls: ['./editclient.component.css']
+  styleUrls: ['./editclient.component.css'],
 })
 export class EditclientComponent implements OnInit {
   @ViewChild('autoShownModal') autoShownModal: ModalDirective;
@@ -28,19 +27,23 @@ export class EditclientComponent implements OnInit {
   modalText: String;
   clientDeleted = false;
 
-  constructor(private clientsService: ClientsService,
+  constructor(
+    private clientsService: ClientsService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder) {
-      this.createForm();
+    private fb: FormBuilder
+  ) {
+    this.createForm();
   }
 
   ngOnInit() {
     this.route.paramMap
-    .switchMap( ( params: ParamMap ) => this.clientsService.getClientById(params.get('id')))
-    .subscribe((client) => {
-      this.client = client;
-    });
+      .switchMap((params: ParamMap) =>
+        this.clientsService.getClientById(params.get('id'))
+      )
+      .subscribe(client => {
+        this.client = client;
+      });
   }
 
   public showModal(): void {
@@ -77,7 +80,9 @@ export class EditclientComponent implements OnInit {
   }
 
   public getBirthday(): string {
-    return moment(this.client.clientbirthday, moment.ISO_8601).format('DD/MM/YYYY');
+    return moment(this.client.clientbirthday, moment.ISO_8601).format(
+      'DD/MM/YYYY'
+    );
   }
 
   public planClient(id: string): void {
@@ -102,7 +107,7 @@ export class EditclientComponent implements OnInit {
     if (client) {
       client._id = this.client._id;
       client.clientbirthday = moment(client.clientbirthday).toISOString();
-      this.clientsService.saveClient(client).subscribe((result) => {
+      this.clientsService.saveClient(client).subscribe(result => {
         if (result.nModified > 0) {
           this.modalText = 'Клієнт успішно відредагований';
           this.showModal();
@@ -111,5 +116,4 @@ export class EditclientComponent implements OnInit {
       });
     }
   }
-
 }

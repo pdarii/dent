@@ -13,23 +13,21 @@ import { StatisticComponent } from './components/statistic/statistic.component';
 import { PlanclientComponent } from './components/planclient/planclient.component';
 import { AdminComponent } from './components/admin/admin.component';
 
-
-
 const routes: Routes = [
-    { path: '', redirectTo: '/clients', pathMatch: 'full' },
-    { path: 'clients', component: ClientsComponent },
-    { path: 'addclient', component: AddclientComponent },
-    { path: 'calendar', component: ClinicCalendarComponent },
-    { path: 'statistic', component: StatisticComponent },
-    { path: 'edit/:id', component: EditclientComponent },
-    { path: 'plan/:id', component: PlanclientComponent },
-    { path: 'birthdays', component: BirthdaysComponent },
-    { path: 'werelongago', component: LongagoComponent },
-    { path: 'admin', component: AdminComponent },
+  { path: '', redirectTo: '/clients', pathMatch: 'full' },
+  { path: 'clients', component: ClientsComponent },
+  { path: 'addclient', component: AddclientComponent },
+  { path: 'calendar', component: ClinicCalendarComponent },
+  { path: 'statistic', component: StatisticComponent },
+  { path: 'edit/:id', component: EditclientComponent },
+  { path: 'plan/:id', component: PlanclientComponent },
+  { path: 'birthdays', component: BirthdaysComponent },
+  { path: 'werelongago', component: LongagoComponent },
+  { path: 'admin', component: AdminComponent },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

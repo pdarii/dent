@@ -5,15 +5,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-clients-grid',
   templateUrl: './clients-grid.component.html',
-  styleUrls: ['./clients-grid.component.css']
+  styleUrls: ['./clients-grid.component.css'],
 })
 export class ClientsGridComponent implements OnInit {
-@Input() clients = [];
+  @Input() clients = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public editClient(client: Client): void {
     this.router.navigate(['/edit', client._id]);
@@ -22,5 +21,4 @@ export class ClientsGridComponent implements OnInit {
   public planClient(client: Client): void {
     this.router.navigate(['/plan', client._id]);
   }
-
 }

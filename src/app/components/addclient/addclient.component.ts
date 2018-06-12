@@ -10,14 +10,16 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidateName, ValidatePhone } from './../../validators/client.validator';
-import {Router} from '@angular/router';
-
+import {
+  ValidateName,
+  ValidatePhone,
+} from './../../validators/client.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addclient',
   templateUrl: './addclient.component.html',
-  styleUrls: ['./addclient.component.css']
+  styleUrls: ['./addclient.component.css'],
 })
 export class AddclientComponent implements OnInit {
   @ViewChild('autoShownModal') autoShownModal: ModalDirective;
@@ -29,7 +31,11 @@ export class AddclientComponent implements OnInit {
   // locale = 'uk';
   bsConfig: Partial<BsDatepickerConfig>;
 
-  constructor(private clientsService: ClientsService, private fb: FormBuilder, private router: Router ) {
+  constructor(
+    private clientsService: ClientsService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     // moment.locale(this.locale);
     this.createForm();
   }
@@ -48,31 +54,40 @@ export class AddclientComponent implements OnInit {
 
   private createForm() {
     this.clientForm = this.fb.group({
-      clientname: ['', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(15),
-        ValidateName
-      ]],
-      clientsurname: ['', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(15),
-        ValidateName
-      ]],
-      clientphone: ['', [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        ValidatePhone
-      ]],
+      clientname: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          ValidateName,
+        ],
+      ],
+      clientsurname: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          ValidateName,
+        ],
+      ],
+      clientphone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          ValidatePhone,
+        ],
+      ],
       clientbirthday: ['', Validators.required],
       clientcomment: [''],
     });
   }
 
   public ngOnInit() {
-   // console.log(moment.locales());
+    // console.log(moment.locales());
     // this.bsConfig = Object.assign({}, { locale: this.locale });
   }
 
@@ -91,5 +106,4 @@ export class AddclientComponent implements OnInit {
   public onSubmit() {
     this.addClient(this.clientForm.value);
   }
-
 }

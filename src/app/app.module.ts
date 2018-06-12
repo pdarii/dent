@@ -46,7 +46,6 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { AdminComponent } from './components/admin/admin.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +63,6 @@ import { AdminComponent } from './components/admin/admin.component';
     SpinnerComponent,
     TimelineComponent,
     AdminComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -78,7 +76,7 @@ import { AdminComponent } from './components/admin/admin.component';
     CalendarModule.forRoot(),
     NvD3Module,
   ],
-  providers: [ ClientsService ],
-  bootstrap: [ AppComponent ]
+  providers: [ClientsService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
