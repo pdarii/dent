@@ -27,6 +27,12 @@ app.post('/api/addClient', function (req, res) {
   clientsServiceObj.addClient(req.body);
 })
 
+app.post('/api/planClient', function (req, res) {
+  const clientsServiceObj = new DBService(req, res)
+  const client = req.params;
+  clientsServiceObj.planClient(req.body);
+})
+
 app.post('/api/saveClient', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
   const client = req.params;

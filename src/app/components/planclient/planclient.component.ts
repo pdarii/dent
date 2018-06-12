@@ -41,13 +41,13 @@ export class PlanclientComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private clientsService: ClientsService,
-    private fb: FormBuilder
-  ) {
+    private fb: FormBuilder,
+    private router: Router
+) {
     this.createForm();
   }
 
   ngOnInit() {
-    console.log(this.client);
     this.getJobs();
     this.getDoctors();
     this.initParamsSubscription();
@@ -61,18 +61,25 @@ export class PlanclientComponent implements OnInit {
       clientcomment: [''],
       clientjob: [''],
       doctor: [''],
+      clientid: [''],
     });
   }
 
-  public planClient(client) {
-    console.log(client);
+  private planClient(client) {
 
-    // if (client) {
-    //   client.clientbirthday = moment(client.clientbirthday).toISOString();
-    //   this.clientsService.addClient(client).subscribe((addedClient: Client) => {
-    //     console.log(addedClient);
-    //   });
-    // }
+    const planDate = moment(client.clientplandate);
+    const planTime = moment(client.clientplantime);
+    const planTimeHours = planTime.hour();
+    const planTimeMinutes = planTime.minute();
+
+    const clientData = {
+      ...client,
+      plandate: planDate.hour(planTimeHours).minute(planTimeMinutes).toDate(),
+    };
+
+    this.clientsService.planClient(clientData).subscribe((plannedClient) => {
+      this.router.navigate([`/edit/${plannedClient.clientid}`]);
+    });
   }
 
   public onSubmit() {
@@ -89,6 +96,7 @@ export class PlanclientComponent implements OnInit {
         this.client = client;
         this.clientForm.patchValue({
           clientphone: client.tel,
+          clientid: client._id,
         });
         this.showSpinner = false;
       });

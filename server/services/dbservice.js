@@ -50,6 +50,29 @@ class DBService {
         });
     }
 
+    planClient(client) {
+      let self = this;
+      MongoClient.connect(url, function (err, db) {
+          db.collection('calendar').insert({
+            clientid: ObjectId(client.clientid),
+            datetime: client.plandate,
+            // jobdone: client.clientjob, @TODO rewrite to use predefined jobs
+            jobdone: client.clientcomment,
+            doctor: client.doctor,
+          }).then((result) => {
+            return self.res.status(200).json({
+              status: 'success',
+              data: result.ops[0]
+            })
+          }).catch((err) => {
+            return self.res.status(500).json({
+              status: 'error',
+              error: `Insert error ${err}`
+            })
+          });
+      });
+    }
+
     saveClient(client) {
         let self = this;
         MongoClient.connect(url, function (err, db) {

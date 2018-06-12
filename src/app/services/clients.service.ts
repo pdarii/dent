@@ -18,6 +18,14 @@ export class ClientsService {
       });
   }
 
+  public planClient(client): Observable<any> {
+    return this.http
+      .post('http://localhost:3000/api/planClient', client)
+      .map(result => {
+        return result['data'];
+      });
+  }
+
   public saveClient(client): Observable<any> {
     return this.http
       .post('http://localhost:3000/api/saveClient', client)
