@@ -78,9 +78,9 @@ export class ClientsService {
       });
   }
 
-  public getPacients(): Observable<any> {
+  public getPacients(period): Observable<any> {
     return this.http
-      .get('http://localhost:3000/api/getStatistic')
+      .post('http://localhost:3000/api/getStatistic', period)
       .map(result => {
         const stat = [];
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ClientsService } from './../../services/clients.service';
 import { CHART_OPTIONS } from './statistic.constants';
+import * as moment from 'moment';
 
 declare let d3: any;
 
@@ -24,7 +25,15 @@ export class StatisticComponent implements OnInit {
   }
 
   getClients() {
-    this.clientsService.getPacients().subscribe(chartData => {
+    const period = moment()
+      .subtract(6, 'months')
+      .minute(0)
+      .second(0)
+      .millisecond(0);
+
+    this.clientsService.getPacients({
+      value: period.toDate(),
+    }).subscribe(chartData => {
       this.formatData(chartData);
     });
   }

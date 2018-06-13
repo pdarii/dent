@@ -344,11 +344,11 @@ class DBService {
         });
     }
 
-    getStatistic() {
-        let self = this;
+    getStatistic(period) {
+      let self = this;
         MongoClient.connect(url, function (err, db) {
             db.collection('calendar')
-                .find()
+                .find({ datetime: { $gt: new Date(period.value), $lt: new Date() }})
                 .toArray()
                 .then((users) => {
                     return self.res.status(200).json({

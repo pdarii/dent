@@ -76,9 +76,9 @@ app.get('/api/searchClient/:name', function (req, res) {
   clientsServiceObj.searchClient(name);
 })
 
-app.get('/api/getStatistic', function (req, res) {
+app.post('/api/getStatistic/', function (req, res) {
   const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getStatistic();
+  clientsServiceObj.getStatistic(req.body);
 })
 
 app.get('/api/getJobs', function (req, res) {
