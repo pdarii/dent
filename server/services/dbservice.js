@@ -327,7 +327,7 @@ class DBService {
                         { "name": { '$regex': name, '$options': 'i' } },
                         { "tel": { '$regex': name, '$options': 'i' } }]
                 },
-                { sort: { surname: 1, name: 1 }, limit: 10 })
+                { sort: { surname: 1, name: 1 }, limit: 500 })
                 .toArray()
                 .then((users) => {
                     return self.res.status(200).json({
