@@ -10,8 +10,7 @@
     "lint": "ng lint --type-check",
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.{ts,js,scss}\"",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot -prod",
-    "start": "node server/app.js"
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
