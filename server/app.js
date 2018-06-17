@@ -1,5 +1,7 @@
 const express = require('express')
 const DBService = require('./services/dbservice')
+const path = require('path')
+
 const app = express()
 
 const bodyParser = require('body-parser')
@@ -93,6 +95,11 @@ app.get('/api/getTimelineEvents/:id', function (req, res) {
 })
 
 
+// APP REQUESTS
+// app.get('/', (req, res) =>  res.sendFile(path.resolve('dist/index.html')));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('dist/index.html'));
+});
 
 
 
