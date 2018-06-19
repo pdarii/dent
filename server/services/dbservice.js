@@ -1,6 +1,19 @@
 const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
-const url = 'mongodb://127.0.0.1:27017/dent';
+
+// PROD
+const aws = require('aws-sdk');
+let s3 = new aws.S3({
+  db_link: process.env.db_link,
+  db_user: process.env.db_user,
+  db_password: process.env.db_password
+});
+
+const url = s3.db_link;
+
+// DEV
+// const url = 'mongodb://127.0.0.1:27017/dent';
+
+
 const ObjectId = require('mongodb').ObjectID;
 
 class DBService {

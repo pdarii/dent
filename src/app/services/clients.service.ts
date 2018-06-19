@@ -10,9 +10,16 @@ import 'rxjs/add/operator/map';
 export class ClientsService {
   constructor(private http: HttpClient) {}
 
+  // DEV
+  // private link = 'http://localhost:3000';
+
+  // PROD
+  private link = '';
+
+
   public addClient(client): Observable<any> {
     return this.http
-      .post('http://localhost:3000/api/addClient', client)
+      .post(this.link + '/api/addClient', client)
       .map(result => {
         return result['data'];
       });
@@ -20,7 +27,7 @@ export class ClientsService {
 
   public planClient(client): Observable<any> {
     return this.http
-      .post('http://localhost:3000/api/planClient', client)
+      .post(this.link + '/api/planClient', client)
       .map(result => {
         return result['data'];
       });
@@ -28,7 +35,7 @@ export class ClientsService {
 
   public saveClient(client): Observable<any> {
     return this.http
-      .post('http://localhost:3000/api/saveClient', client)
+      .post(this.link + '/api/saveClient', client)
       .map(result => {
         return result['data'];
       });
@@ -36,27 +43,27 @@ export class ClientsService {
 
   public deleteClient(id): Observable<any> {
     return this.http
-      .post('http://localhost:3000/api/deleteClient', { id })
+      .post(this.link + '/api/deleteClient', { id })
       .map(result => {
         return result['data'];
       });
   }
 
   public getClients(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/getClients').map(result => {
+    return this.http.get(this.link + '/api/getClients').map(result => {
       return result['data'];
     });
   }
 
   public getDoctors(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/getDoctors').map(result => {
+    return this.http.get(this.link + '/api/getDoctors').map(result => {
       return result['data'];
     });
   }
 
   public getBirthdaysCount(): Observable<any> {
     return this.http
-      .get('http://localhost:3000/api/getBirthdaysCount')
+      .get(this.link + '/api/getBirthdaysCount')
       .map(result => {
         return result['data'];
       });
@@ -64,7 +71,7 @@ export class ClientsService {
 
   public getCalendarData(): Observable<any> {
     return this.http
-      .get('http://localhost:3000/api/getCalendarData')
+      .get(this.link + '/api/getCalendarData')
       .map(result => {
         return result['data'];
       });
@@ -72,7 +79,7 @@ export class ClientsService {
 
   public getClientById(id: string): Observable<any> {
     return this.http
-      .get(`http://localhost:3000/api/getClientById/${id}`)
+      .get(`${ this.link }/api/getClientById/${id}`)
       .map(result => {
         return result['data'];
       });
@@ -80,7 +87,7 @@ export class ClientsService {
 
   public getPacients(period): Observable<any> {
     return this.http
-      .post('http://localhost:3000/api/getStatistic', period)
+      .post(this.link + '/api/getStatistic', period)
       .map(result => {
         const stat = [];
 
@@ -98,21 +105,21 @@ export class ClientsService {
 
   public searchClient(name: string): Observable<any> {
     return this.http
-      .get(`http://localhost:3000/api/searchClient/${name}`)
+      .get(`${ this.link }/api/searchClient/${name}`)
       .map(result => {
         return result['data'];
       });
   }
 
   public getJobs(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/getJobs').map(result => {
+    return this.http.get(this.link + '/api/getJobs').map(result => {
       return result['data'];
     });
   }
 
   public getClientsCount(): Observable<any> {
     return this.http
-      .get(`http://localhost:3000/api/getClientsCount`)
+      .get(`${ this.link }/api/getClientsCount`)
       .map(result => {
         return result['data'];
       });
@@ -120,7 +127,7 @@ export class ClientsService {
 
   public getTimelineEvents(id: string): Observable<any> {
     return this.http
-      .get(`http://localhost:3000/api/getTimelineEvents/${id}`)
+      .get(`${ this.link }/api/getTimelineEvents/${id}`)
       .map(result => {
         return result['data'];
       });
