@@ -10,6 +10,10 @@ let s3 = new aws.S3({
 
 const url = s3.db_link;
 
+console.log('-------------------');
+console.log(url);
+console.log('-------------------');
+
 // DEV
 // const url = 'mongodb://127.0.0.1:27017/dent';
 

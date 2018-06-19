@@ -56,6 +56,10 @@ app.get('/api/getCalendarData', function (req, res) {
 })
 
 app.get('/api/getClientsCount', function (req, res) {
+  console.log('-------------------');
+  console.log('getClientsCount');
+  console.log('-------------------');
+
   const clientsServiceObj = new DBService(req, res)
   clientsServiceObj.getClientsCount();
 })
