@@ -1,20 +1,20 @@
 const MongoClient = require('mongodb').MongoClient;
 
 // PROD
-const aws = require('aws-sdk');
-let s3 = new aws.S3({
-  db_link: process.env.db_link,
-  db_user: process.env.db_user,
-  db_password: process.env.db_password
-});
+// const aws = require('aws-sdk');
+// let s3 = new aws.S3({
+//   db_link: process.env.db_link,
+//   db_user: process.env.db_user,
+//   db_password: process.env.db_password
+// });
 
-const url = s3.db_link;
+const url = process.env.db_link;
 
-console.log('-------------------');
-console.log(url);
-console.log(process.env.db_link);
-console.log(s3);
-console.log('-------------------');
+// console.log('-------------------');
+// console.log(url);
+// console.log(process.env.db_link);
+// console.log(s3);
+// console.log('-------------------');
 
 // DEV
 // const url = 'mongodb://127.0.0.1:27017/dent';
