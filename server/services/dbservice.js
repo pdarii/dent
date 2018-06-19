@@ -12,6 +12,8 @@ const url = s3.db_link;
 
 console.log('-------------------');
 console.log(url);
+console.log(process.env.db_link);
+console.log(s3);
 console.log('-------------------');
 
 // DEV
