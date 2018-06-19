@@ -107,8 +107,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// const port = process.env.PORT || '8080';
-const port = '3000';
+const port = process.env.PORT || '8080';
+// const port = '3000';
 
 app.listen(port, function () {
   console.log('DB service listening on port ', port);
