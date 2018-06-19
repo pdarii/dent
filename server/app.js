@@ -3,7 +3,6 @@
 const express = require('express')
 const DBService = require('./services/dbservice')
 const path = require('path')
-const api = require('./routes/api');
 const bodyParser = require('body-parser')
 const app = express()
 
