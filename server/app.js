@@ -15,83 +15,83 @@ app.use(express.static(__dirname + './../dist'));
 
 
 
-// DB Service Calls - @TODO rewrite this
-app.post('/api/deleteClient',function(req,res){
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.deleteClient(req.body.id);
-});
-
-app.post('/api/addClient', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.addClient(req.body);
-})
-
-app.post('/api/planClient', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.planClient(req.body);
-})
-
-app.post('/api/saveClient', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.saveClient(req.body);
-})
-
-app.get('/api/getClients', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getClients();
-})
-
-app.get('/api/getDoctors', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getDoctors();
-})
-
-app.get('/api/getBirthdaysCount', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getBirthdaysCount();
-})
-
-app.get('/api/getCalendarData', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getCalendarData();
-})
-
-app.get('/api/getClientsCount', function (req, res) {
-  console.log('-------------------');
-  console.log('getClientsCount');
-  console.log('-------------------');
-
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getClientsCount();
-})
-
-app.get('/api/getClientById/:id', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  const id = req.params.id;
-  clientsServiceObj.getClientById(id);
-})
-
-app.get('/api/searchClient/:name', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  const name = req.params.name;
-  clientsServiceObj.searchClient(name);
-})
-
-app.post('/api/getStatistic/', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getStatistic(req.body);
-})
-
-app.get('/api/getJobs', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  clientsServiceObj.getJobs();
-})
-
-app.get('/api/getTimelineEvents/:id', function (req, res) {
-  const clientsServiceObj = new DBService(req, res)
-  const id = req.params.id;
-  clientsServiceObj.getTimelineEvents(id);
-})
+// // DB Service Calls - @TODO rewrite this
+// app.post('/api/deleteClient',function(req,res){
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.deleteClient(req.body.id);
+// });
+//
+// app.post('/api/addClient', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.addClient(req.body);
+// })
+//
+// app.post('/api/planClient', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.planClient(req.body);
+// })
+//
+// app.post('/api/saveClient', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.saveClient(req.body);
+// })
+//
+// app.get('/api/getClients', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.getClients();
+// })
+//
+// app.get('/api/getDoctors', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.getDoctors();
+// })
+//
+// app.get('/api/getBirthdaysCount', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.getBirthdaysCount();
+// })
+//
+// app.get('/api/getCalendarData', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.getCalendarData();
+// })
+//
+// app.get('/api/getClientsCount', function (req, res) {
+//   console.log('-------------------');
+//   console.log('getClientsCount');
+//   console.log('-------------------');
+//
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.getClientsCount();
+// })
+//
+// app.get('/api/getClientById/:id', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   const id = req.params.id;
+//   clientsServiceObj.getClientById(id);
+// })
+//
+// app.get('/api/searchClient/:name', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   const name = req.params.name;
+//   clientsServiceObj.searchClient(name);
+// })
+//
+// app.post('/api/getStatistic/', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.getStatistic(req.body);
+// })
+//
+// app.get('/api/getJobs', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   clientsServiceObj.getJobs();
+// })
+//
+// app.get('/api/getTimelineEvents/:id', function (req, res) {
+//   const clientsServiceObj = new DBService(req, res)
+//   const id = req.params.id;
+//   clientsServiceObj.getTimelineEvents(id);
+// })
 
 // END DB Service Calls - @TODO rewrite this
 
