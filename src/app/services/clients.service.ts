@@ -118,6 +118,11 @@ export class ClientsService {
   }
 
   public getClientsCount(): Observable<any> {
+
+    console.log('getClientsCount');
+    console.log(`${ this.link }/api/getClientsCount`);
+
+
     return this.http
       .get(`${ this.link }/api/getClientsCount`)
       .map(result => {
