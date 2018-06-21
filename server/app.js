@@ -1,19 +1,5 @@
 // PROD ENV
 
-// const express = require('express')
-// const DBService = require('./services/dbservice')
-// const path = require('path')
-// const bodyParser = require('body-parser')
-// const app = express()
-//
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({ extended: true }))
-// app.use(express.static(__dirname + './../dist'));
-//
-
-
-
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
@@ -28,11 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 
 // Create link to Angular build directory
-var distDir = __dirname + "./../dist";
+const distDir = __dirname + "./../dist";
 app.use(express.static(distDir));
-
-
-
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 let db;
@@ -61,32 +44,25 @@ mongodb.MongoClient.connect(db_link, function (err, client) {
 });
 
 
-
-// CONTACTS API ROUTES BELOW
-
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
+// handleError(res, err.message, "Failed to get clients count.");
+
+
+// CONTACTS API ROUTES BELOW
 
 app.get('/api/getClientsCount', function (req, res) {
-  console.log('-------------------');
-  console.log('getClientsCount');
-
     db.collection(CLIENTS_COLLECTION).count()
       .then((num) => {
-
-        console.log(num);
-        console.log('-------------------');
-
         return res.status(200).json({
           status: 'success',
           data: num
         })
       })
       .catch((err) => {
-        //     handleError(res, err.message, "Failed to get clients count.");
         return res.status(500).json({
           status: 'error',
           error: err
@@ -94,131 +70,324 @@ app.get('/api/getClientsCount', function (req, res) {
       });
 })
 
-app.get('/*', function(req,res) {
-  console.log('++++++++++++');
-  console.log(req.originalUrl);
-  console.log('++++++++++++');
-  res.sendFile(path.join(__dirname+'./../dist'));
+app.post('/api/deleteClient',function(req,res){
+  const id = req.body.id;
+  db.collection('clients').remove({ _id: ObjectId(id) }, true)
+    .then((result) => {
+      return res.status(200).json({
+        status: 'success',
+        data: result
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
 });
 
 
+app.post('/api/addClient', function (req, res) {
+  const client = req.body;
+  db.collection('clients').findOne({}, { sort: { clientnum: -1 } }
+  ).then((result) => {
+    let lastNumber;
+    if (result) {
+      lastNumber = (!result.clientnum) ? 0 : result.clientnum;
+    } else {
+      lastNumber = 0;
+    };
+
+    db.collection('clients').insert({
+      name: client.clientname,
+      surname: client.clientsurname,
+      tel: client.clientphone,
+      comment: client.clientcomment,
+      clientnum: +lastNumber + 1,
+      clientbirthday: new Date(client.clientbirthday)
+    }).then((result) => {
+      return res.status(200).json({
+        status: 'success',
+        data: result.ops[0]
+      })
+    }).catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: `Insert error ${err}`
+      })
+    });
+
+  }).catch((err) => {
+    return res.status(500).json({
+      status: 'error',
+      error: `Last number error ${err}`
+    })
+  });
+});
 
 
+app.post('/api/planClient', function (req, res) {
+  const client = req.body;
+  db.collection('calendar').insert({
+    clientid: ObjectId(client.clientid),
+    datetime: client.plandate,
+    // jobdone: client.clientjob, @TODO rewrite to use predefined jobs
+    jobdone: client.clientcomment,
+    doctor: client.doctor,
+  }).then((result) => {
+    return res.status(200).json({
+      status: 'success',
+      data: result.ops[0]
+    })
+  }).catch((err) => {
+    return res.status(500).json({
+      status: 'error',
+      error: `Insert error ${err}`
+    })
+  });
+});
 
 
-//
-//
-// // DB Service Calls - @TODO rewrite this
-// app.post('/api/deleteClient',function(req,res){
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.deleteClient(req.body.id);
-// });
-//
-// app.post('/api/addClient', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.addClient(req.body);
-// })
-//
-// app.post('/api/planClient', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.planClient(req.body);
-// })
-//
-// app.post('/api/saveClient', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.saveClient(req.body);
-// })
-//
-// app.get('/api/getClients', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.getClients();
-// })
-//
-// app.get('/api/getDoctors', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.getDoctors();
-// })
-//
-// app.get('/api/getBirthdaysCount', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.getBirthdaysCount();
-// })
-//
-// app.get('/api/getCalendarData', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.getCalendarData();
-// })
-//
-// app.get('/api/getClientsCount', function (req, res) {
-//   console.log('-------------------');
-//   console.log('getClientsCount');
-//   console.log('-------------------');
-//
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.getClientsCount();
-// })
-//
-// app.get('/api/getClientById/:id', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   const id = req.params.id;
-//   clientsServiceObj.getClientById(id);
-// })
-//
-// app.get('/api/searchClient/:name', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   const name = req.params.name;
-//   clientsServiceObj.searchClient(name);
-// })
-//
-// app.post('/api/getStatistic/', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.getStatistic(req.body);
-// })
-//
-// app.get('/api/getJobs', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   clientsServiceObj.getJobs();
-// })
-//
-// app.get('/api/getTimelineEvents/:id', function (req, res) {
-//   const clientsServiceObj = new DBService(req, res)
-//   const id = req.params.id;
-//   clientsServiceObj.getTimelineEvents(id);
-// })
+app.post('/api/saveClient', function (req, res) {
+  const client = req.body;
+  db.collection('clients').update({ _id: ObjectId(client._id) },
+    {
+      $set: {
+        name: client.clientname,
+        surname: client.clientsurname,
+        tel: client.clientphone,
+        comment: client.clientcomment,
+        clientbirthday: new Date(client.clientbirthday)
+      }
+    })
+    .then((result) => {
+      return res.status(200).json({
+        status: 'success',
+        data: result
+      })
+    }).catch((err) => {
+    return res.status(500).json({
+      status: 'error',
+      error: `Insert error ${err}`
+    })
+  });
 
-// END DB Service Calls - @TODO rewrite this
+});
+
+app.get('/api/getClients', function (req, res) {
+  db.collection('clients')
+    .find()
+    .sort({ $natural: -1 })
+    .limit(10)
+    .toArray()
+    .then((users) => {
+      return res.status(200).json({
+        status: 'success',
+        data: users
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
+
+app.get('/api/getDoctors', function (req, res) {
+  db.collection('doctors')
+    .find()
+    .sort({ $natural: -1 })
+    .toArray()
+    .then((doctors) => {
+      return res.status(200).json({
+        status: 'success',
+        data: doctors
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
+
+app.get('/api/getBirthdaysCount', function (req, res) {
+  // @TODO
+  const d = new Date();
+
+  const month = d.getMonth();
+  const day = d.getDate();
+
+  db.collection('clients')
+    .find({})
+    .toArray()
+    .then((num) => {
+      return res.status(200).json({
+        status: 'success',
+        data: num
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+
+});
 
 
+app.get('/api/getCalendarData', function (req, res) {
+  let d = new Date();
+  // @TODO зміни на 1 місяць
+  d.setMonth(d.getMonth() - 2);
+
+  // @TODO REWRITE THIS AS FAST AS YOU CAN
+  db.collection('calendar').aggregate([
+    {
+      $lookup:
+        {
+          from: "clients",
+          localField: "clientid",
+          foreignField: "_id",
+          as: "client"
+        }
+    }
+  ]) .toArray()
+    .then((events) => {
+      return res.status(200).json({
+        status: 'success',
+        data: events
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
+
+app.get('/api/getClientById/:id', function (req, res) {
+  const id = req.params.id;
+  if (id === 'new') {
+    return res.status(200).json({
+      status: 'success',
+      data: ''
+    })
+  }
+  db.collection('clients').findOne({ "_id": ObjectId(id) }, {})
+    .then((client) => {
+      return res.status(200).json({
+        status: 'success',
+        data: client
+      })
+
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
 
 
+app.get('/api/searchClient/:name', function (req, res) {
+  const name = req.params.name;
+
+  db.collection('clients')
+    .find({
+        $or: [
+          { "surname": { '$regex': name, '$options': 'i' } },
+          { "name": { '$regex': name, '$options': 'i' } },
+          { "tel": { '$regex': name, '$options': 'i' } }]
+      },
+      { sort: { surname: 1, name: 1 }, limit: 500 })
+    .toArray()
+    .then((users) => {
+      return res.status(200).json({
+        status: 'success',
+        data: users
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+
+});
 
 
-// app.get('/*', function(req,res) {
-//   console.log('-------------------');
-//   console.log(req.originalUrl);
-//   console.log('-------------------');
-//   res.sendFile(path.join(__dirname+'./../dist/index.html'));
-// });
-//
-//
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-//
-// const port = process.env.PORT || '8080';
-// // const port = '3000';
-//
-// app.set('port', port);
-//
-// const server = http.createServer(app);
-// server.listen(port, ()=>console.log('DB service listening on port ', port))
+app.post('/api/getStatistic/', function (req, res) {
+  const period = req.body;
+  db.collection('calendar')
+    .find({ datetime: { $gt: new Date(period.value), $lt: new Date() }})
+    .toArray()
+    .then((users) => {
+      return res.status(200).json({
+        status: 'success',
+        data: users
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
 
-// app.listen(port, function () {
-//   console.log('DB service listening on port ', port);
-// })
 
+app.get('/api/getJobs', function (req, res) {
+  db.collection('jobsList')
+    .find()
+    .sort({ $natural: -1 })
+    .toArray()
+    .then((jobs) => {
+      return res.status(200).json({
+        status: 'success',
+        data: jobs
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
+
+
+app.get('/api/getTimelineEvents/:id', function (req, res) {
+  const id = req.params.id;
+  db.collection('calendar')
+    .find({ "clientid": ObjectId(id) })
+    .sort({ $natural: -1 })
+    .toArray()
+    .then((events) => {
+      return res.status(200).json({
+        status: 'success',
+        data: events
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
+
+
+app.get('/*', function(req,res) {
+  res.sendFile(path.join(__dirname+'./../dist'));
+});
 
 
 
