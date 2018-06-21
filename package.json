@@ -31,7 +31,7 @@
     "core-js": "^2.5.3",
     "express": "^4.16.2",
     "moment": "^2.20.1",
-    "mongodb": "^2.2.33",
+    "mongodb": "^3.0.10",
     "ng2-nvd3": "^2.0.0",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "popper.js": "^1.12.9",

@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 // PROD
 const url = process.env.db_link;
-
+// TODO Delete file
 // DEV
 // const url = 'mongodb://127.0.0.1:27017/dent';
 
