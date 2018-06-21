@@ -2,19 +2,17 @@ const MongoClient = require('mongodb').MongoClient;
 
 // PROD
 const url = process.env.db_link;
-console.log('-------------------');
-console.log(url);
-console.log('-------------------');
 
 // DEV
 // const url = 'mongodb://127.0.0.1:27017/dent';
 
 
-const ObjectId = require('mongodb').ObjectID;
+console.log('-------------------');
+console.log(url);
+console.log('-------------------');
 
-console.log('-------------------');
-console.log(ObjectId);
-console.log('-------------------');
+
+const ObjectId = require('mongodb').ObjectID;
 
 class DBService {
 

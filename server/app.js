@@ -101,7 +101,7 @@ app.get('/api/getTimelineEvents/:id', function (req, res) {
 
 app.get('/*', function(req,res) {
   console.log('-------------------');
-  console.log(req.request);
+  console.log(req.originalUrl);
   console.log('-------------------');
   res.sendFile(path.join(__dirname+'./../dist/index.html'));
 });
