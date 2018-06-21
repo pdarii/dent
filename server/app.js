@@ -18,6 +18,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const ObjectID = mongodb.ObjectID;
+const path = require('path')
 
 const CLIENTS_COLLECTION = "clients";
 
@@ -74,14 +75,6 @@ app.get('/api/getClientsCount', function (req, res) {
   console.log('getClientsCount');
   console.log('-------------------');
 
-  // db.collection(CLIENTS_COLLECTION).count().toArray(function(err, num) {
-  //   if (err) {
-  //     handleError(res, err.message, "Failed to get clients count.");
-  //   } else {
-  //     res.status(200).json(num);
-  //   }
-  // });
-
     db.collection(CLIENTS_COLLECTION).count()
       .then((num) => {
         return res.status(200).json({
@@ -90,6 +83,7 @@ app.get('/api/getClientsCount', function (req, res) {
         })
       })
       .catch((err) => {
+        //     handleError(res, err.message, "Failed to get clients count.");
         return res.status(500).json({
           status: 'error',
           error: err
@@ -97,9 +91,12 @@ app.get('/api/getClientsCount', function (req, res) {
       });
 })
 
-
-
-
+app.get('/*', function(req,res) {
+  console.log('-------------------');
+  console.log(req.originalUrl);
+  console.log('-------------------');
+  res.sendFile(path.join(__dirname+'./../dist/index.html'));
+});
 
 
 
