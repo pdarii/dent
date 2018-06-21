@@ -98,7 +98,7 @@ app.get('/*', function(req,res) {
   console.log('++++++++++++');
   console.log(req.originalUrl);
   console.log('++++++++++++');
-  res.sendFile(path.join(__dirname+'./../dist/'));
+  res.sendFile(path.join(__dirname+'./../dist'));
 });
 
 
