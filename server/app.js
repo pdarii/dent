@@ -73,10 +73,13 @@ function handleError(res, reason, message, code) {
 app.get('/api/getClientsCount', function (req, res) {
   console.log('-------------------');
   console.log('getClientsCount');
-  console.log('-------------------');
 
     db.collection(CLIENTS_COLLECTION).count()
       .then((num) => {
+
+        console.log(num);
+        console.log('-------------------');
+
         return res.status(200).json({
           status: 'success',
           data: num
@@ -92,9 +95,9 @@ app.get('/api/getClientsCount', function (req, res) {
 })
 
 app.get('/*', function(req,res) {
-  console.log('-------------------');
+  console.log('++++++++++++');
   console.log(req.originalUrl);
-  console.log('-------------------');
+  console.log('++++++++++++');
   res.sendFile(path.join(__dirname+'./../dist/index.html'));
 });
 
