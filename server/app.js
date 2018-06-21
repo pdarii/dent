@@ -3,11 +3,12 @@
 const express = require('express')
 const DBService = require('./services/dbservice')
 const path = require('path')
-const bodyParser = require('body-parser')
+const http = require('http')
+// const bodyParser = require('body-parser')
 const app = express()
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(__dirname + './../dist'));
 
 
@@ -116,9 +117,14 @@ app.use(function (req, res, next) {
 const port = process.env.PORT || '8080';
 // const port = '3000';
 
-app.listen(port, function () {
-  console.log('DB service listening on port ', port);
-})
+app.set('port', port);
+
+const server = http.createServer(app);
+server.listen(port, ()=>console.log('DB service listening on port ', port))
+
+// app.listen(port, function () {
+//   console.log('DB service listening on port ', port);
+// })
 
 
 
