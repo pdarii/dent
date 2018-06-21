@@ -70,35 +70,35 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-// app.get('/api/getClientsCount', function (req, res) {
-//   console.log('-------------------');
-//   console.log('getClientsCount');
-//
-//     db.collection(CLIENTS_COLLECTION).count()
-//       .then((num) => {
-//
-//         console.log(num);
-//         console.log('-------------------');
-//
-//         return res.status(200).json({
-//           status: 'success',
-//           data: num
-//         })
-//       })
-//       .catch((err) => {
-//         //     handleError(res, err.message, "Failed to get clients count.");
-//         return res.status(500).json({
-//           status: 'error',
-//           error: err
-//         })
-//       });
-// })
+app.get('/api/getClientsCount', function (req, res) {
+  console.log('-------------------');
+  console.log('getClientsCount');
+
+    db.collection(CLIENTS_COLLECTION).count()
+      .then((num) => {
+
+        console.log(num);
+        console.log('-------------------');
+
+        return res.status(200).json({
+          status: 'success',
+          data: num
+        })
+      })
+      .catch((err) => {
+        //     handleError(res, err.message, "Failed to get clients count.");
+        return res.status(500).json({
+          status: 'error',
+          error: err
+        })
+      });
+})
 
 app.get('/*', function(req,res) {
   console.log('++++++++++++');
   console.log(req.originalUrl);
   console.log('++++++++++++');
-  res.sendFile(path.join(__dirname+'./../dist/index.html'));
+  res.sendFile(path.join(__dirname+'./../dist/'));
 });
 
 
