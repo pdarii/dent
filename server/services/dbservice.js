@@ -12,6 +12,10 @@ console.log('-------------------');
 
 const ObjectId = require('mongodb').ObjectID;
 
+console.log('-------------------');
+console.log(ObjectId);
+console.log('-------------------');
+
 class DBService {
 
     constructor(req, res) {
