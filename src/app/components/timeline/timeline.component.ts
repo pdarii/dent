@@ -34,9 +34,19 @@ export class TimelineComponent implements OnInit {
   }
 
   public getDoctorNameById(id) {
-    if (this.doctors.length) {
+    if (this.doctors && this.doctors.length) {
       const doc = this.doctors.filter(doctor => doctor._id === id);
       return doc && doc.length ? `${doc[0].name} ${doc[0].surname}` : '';
     }
   }
+
+  public getDoctorColorById(id) {
+    if (this.doctors && this.doctors.length) {
+      const doc = this.doctors.filter(doctor => doctor._id === id);
+      return doc && doc.length ? `${doc[0].color}` : '';
+    }
+  }
+
+
+
 }

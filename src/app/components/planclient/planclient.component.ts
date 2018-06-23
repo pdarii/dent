@@ -10,7 +10,11 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ruLocale } from 'ngx-bootstrap/locale';
+defineLocale('ru', ruLocale);
+
 import { TimepickerConfig } from 'ngx-bootstrap/timepicker';
 
 import { getTimepickerConfig } from './planclient.constants';
@@ -42,12 +46,18 @@ export class PlanclientComponent implements OnInit {
     private route: ActivatedRoute,
     private clientsService: ClientsService,
     private fb: FormBuilder,
-    private router: Router
-) {
+    private router: Router,
+    private localeService: BsLocaleService
+  ) {
+    this.localeService.use('ru');
     this.createForm();
   }
 
   ngOnInit() {
+    this.bsConfig = {
+      ...this.bsConfig,
+      dateInputFormat: 'DD.MM.YYYY'
+    };
     this.getJobs();
     this.getDoctors();
     this.initParamsSubscription();

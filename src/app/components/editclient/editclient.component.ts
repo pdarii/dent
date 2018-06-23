@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 
 import { Client } from './../../interfaces/client';
 import { ClientsService } from './../../services/clients.service';
@@ -10,7 +10,10 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as moment from 'moment';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 
 @Component({
   selector: 'app-editclient',
@@ -18,20 +21,18 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   styleUrls: ['./editclient.component.css'],
 })
 export class EditclientComponent implements OnInit {
-  @ViewChild('autoShownModal') autoShownModal: ModalDirective;
-  isModalShown = false;
   isEditMode = false;
-
+  modalRef: BsModalRef;
   client: Client;
   clientForm: FormGroup;
   modalText: String;
-  clientDeleted = false;
 
   constructor(
     private clientsService: ClientsService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: BsModalService
   ) {
     this.createForm();
   }
@@ -46,12 +47,17 @@ export class EditclientComponent implements OnInit {
       });
   }
 
-  public showModal(): void {
-    this.isModalShown = true;
+  private openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  public hideModal(): void {
-    this.autoShownModal.hide();
+  private confirm(): void {
+    this.deleteClient(this.client._id);
+    this.modalRef.hide();
+  }
+
+  private decline(): void {
+    this.modalRef.hide();
   }
 
   public edit() {
@@ -62,16 +68,10 @@ export class EditclientComponent implements OnInit {
     this.isEditMode = false;
   }
 
-  public onHidden(): void {
-    this.isModalShown = false;
-    if (this.clientDeleted) {
-      this.router.navigate(['/clients']);
-    }
-  }
-
   private createForm(): void {
     this.clientForm = this.fb.group({
       clientname: ['', Validators.required],
+      clientfather: [''],
       clientsurname: ['', Validators.required],
       clientphone: ['', Validators.required],
       clientbirthday: ['', Validators.required],
@@ -92,9 +92,9 @@ export class EditclientComponent implements OnInit {
   public deleteClient(id: string): void {
     this.clientsService.deleteClient(id).subscribe((result: any) => {
       if (result.n > 0) {
-        this.clientDeleted = true;
-        this.modalText = 'Клієнт успішно видалений';
-        this.showModal();
+          this.router.navigate(['/clients']);
+      } else {
+        console.error(result);
       }
     });
   }
@@ -110,7 +110,6 @@ export class EditclientComponent implements OnInit {
       this.clientsService.saveClient(client).subscribe(result => {
         if (result.nModified > 0) {
           this.modalText = 'Клієнт успішно відредагований';
-          this.showModal();
         }
         this.isEditMode = false;
       });

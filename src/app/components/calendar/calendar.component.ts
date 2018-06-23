@@ -28,6 +28,9 @@ import {
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { colors } from './mock';
 import * as moment from 'moment';
+import {Router} from '@angular/router';
+
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-calendar',
@@ -47,42 +50,15 @@ export class ClinicCalendarComponent implements OnInit {
   view = 'month';
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
-  public calendarEvents: CalendarEvent[];
   events: CalendarEvent[] = [];
-  eventss: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  doctors: any;
 
   activeDayIsOpen = true;
 
-  constructor(private clientsService: ClientsService) {}
+  constructor(
+    private clientsService: ClientsService,
+    private router: Router
+) {}
 
   ngOnInit() {
     this.getData();
@@ -91,24 +67,39 @@ export class ClinicCalendarComponent implements OnInit {
 
   private getData() {
     this.showSpinner = true;
-    this.clientsService.getCalendarData().subscribe(calendarData => {
-      this.events = calendarData.map(event => {
-        return {
-          start: new Date(event.datetime),
-          end: new Date(event.datetime),
-          title: `${this.getClientName(event.client)} / ${
-            event.jobdone
-          } / ${moment(event.datetime).format('HH:mm DD/MM/YYYY')}`,
-          color: colors.red,
-        };
+      this.clientsService.getDoctors().subscribe(doctors => {
+        this.doctors = doctors;
+        this.clientsService.getCalendarData().subscribe(calendarData => {
+          this.events = calendarData.map(event => {
+            return {
+              start: new Date(event.datetime),
+              end: new Date(event.datetime),
+              title: `${this.getClientName(event.client)} / ${
+                event.jobdone
+                } / ${moment(event.datetime).format('HH:mm DD/MM/YYYY')}`,
+              color: this.getColor(event.doctor),
+              clientId: event.clientid,
+            };
+          });
+          this.showSpinner = false;
+          this.refresh.next();
+        });
       });
-      this.showSpinner = false;
-      this.refresh.next();
-    });
+  }
+
+  private getColor(doctor) {
+    const doc = _.find(this.doctors, {'_id': doctor});
+    return doc ? {
+          primary: `${doc.color}`,
+          secondary: `#FAE3E3`,
+        } : {
+        primary: '#ad2121',
+        secondary: '#FAE3E3',
+      };
   }
 
   private getClientName(client) {
-    return client.length ? `${client[0].name} ${client[0].surname}` : '';
+    return client.length ? `${client[0].name || ''} ${client[0].father  || ''} ${client[0].surname  || ''}` : '';
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -136,7 +127,7 @@ export class ClinicCalendarComponent implements OnInit {
     this.refresh.next();
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    console.log({ event, action });
+  handleEvent(action: string, event: any): void {
+    this.router.navigate([`/edit/${event.clientId}`]);
   }
 }

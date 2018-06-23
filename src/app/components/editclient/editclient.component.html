@@ -6,15 +6,19 @@
 
   <div class="form-group">
     <input type="text" class="form-control" id="clientname" [readonly]="!isEditMode"
-    placeholder="Введіть Ім'я" [(ngModel)]="client.name" formControlName="clientname">
+    placeholder="Введіть ім'я" [(ngModel)]="client.name" formControlName="clientname">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="clientfather" [readonly]="!isEditMode"
+    placeholder="Введіть по батькові" [(ngModel)]="client.father" formControlName="clientfather">
   </div>
   <div class="form-group">
     <input type="text" class="form-control" id="clientsurname" formControlName="clientsurname" [readonly]="!isEditMode"
-    placeholder="Введіть Фамілію" [(ngModel)]="client.surname">
+    placeholder="Введіть фамілію" [(ngModel)]="client.surname">
   </div>
   <div class="form-group">
     <input type="phone" class="form-control" id="clientphone" formControlName="clientphone" [readonly]="!isEditMode"
-    placeholder="Введіть Телефон" [(ngModel)]="client.tel">
+    placeholder="Введіть телефон" [(ngModel)]="client.tel">
   </div>
   <div class="form-group">
     <input bsDatepicker #dp="bsDatepicker" type="text" class="form-control" formControlName="clientbirthday" [readonly]="!isEditMode"
@@ -28,7 +32,7 @@
   <div *ngIf="isEditMode">
     <button [disabled]="clientForm.invalid" type="submit" class="btn btn-primary">Зберегти</button>
     <button (click)="resetForm()" class="btn btn-primary">Відміна</button>
-    <button (click)="deleteClient(client._id)" class="btn btn-danger">Видалити</button>
+    <button (click)="openModal(template)" class="btn btn-danger">Видалити</button>
   </div>
 
   <div *ngIf="!isEditMode">
@@ -38,23 +42,13 @@
   </div>
 
 </form>
-
   <app-timeline [clientId]="client._id"></app-timeline>
-
 </div>
 
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">{{modalText}}</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>{{client.name}} {{client.surname}}</p>
-      </div>
-    </div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Ви дійсно бажаєте видалити клієнта?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Видалити</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Не видаляти</button>
   </div>
-</div>
+</ng-template>

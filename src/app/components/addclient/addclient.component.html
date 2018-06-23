@@ -2,19 +2,38 @@
   <div class="form-group">
     <input type="text" class="form-control" id="clientname"
     placeholder="Введіть Ім'я" formControlName="clientname">
+    <label
+      *ngIf="clientForm.get('clientname').invalid && clientForm.get('clientname').touched"
+      for="clientname">Ім'я не корректне</label>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="clientfather"
+           placeholder="Введіть по батькові" formControlName="clientfather">
+    <label
+      *ngIf="clientForm.get('clientfather').invalid && clientForm.get('clientfather').touched"
+      for="clientname">По батькові не корректне</label>
   </div>
   <div class="form-group">
     <input type="text" class="form-control" id="clientsurname"
-    placeholder="Введіть Фамілію" formControlName="clientsurname">
+    placeholder="Введіть фамілію" formControlName="clientsurname">
+    <label
+      *ngIf="clientForm.get('clientsurname').invalid && clientForm.get('clientsurname').touched"
+      for="clientsurname">Фамілія не корректна</label>
   </div>
   <div class="form-group">
     <input type="phone" class="form-control" id="clientphone"
     placeholder="Введіть Телефон у форматі 0991122333" formControlName="clientphone">
+    <label
+      *ngIf="clientForm.get('clientphone').invalid && clientForm.get('clientphone').touched"
+      for="clientphone">Введіть телефон у форматі 0991122333</label>
   </div>
   <div class="form-group">
     <input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig"
     type="text" class="form-control" id="clientbirthday"
-    formControlName="clientbirthday" placeholder="Введіть дату народження">
+    formControlName="clientbirthday" placeholder="Введіть дату народження у форматі 25.12.1987">
+    <label
+      *ngIf="clientForm.get('clientbirthday').invalid && clientForm.get('clientbirthday').touched"
+      for="clientbirthday">Введіть дату у форматі 25.12.1987</label>
   </div>
   <div class="form-group">
     <textarea class="form-control" id="clientcomment"
@@ -25,18 +44,3 @@
 
 <p>Form value: {{ clientForm.value | json }}</p>
 <p>Form status: {{ clientForm.status | json }}</p>
-
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Клієнт успішно доданий</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>{{addedClient.name}} {{addedClient.surname}}</p>
-      </div>
-    </div>
-  </div>

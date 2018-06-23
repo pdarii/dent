@@ -1,7 +1,7 @@
 <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate autocomplete="on" *ngIf="!showSpinner">
 
   <div *ngIf="client" class="form-group">
-    <input type="text" class="form-control" readonly="readonly" value="{{client.name}} {{client.surname}}">
+    <input type="text" class="form-control" readonly="readonly" value="{{client.name}} {{client.father}} {{client.surname}}">
   </div>
 
   <div [class.hidden]="client" class="form-group">

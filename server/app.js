@@ -13,9 +13,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
-// Create link to Angular build directory
-const distDir = __dirname + "./../dist";
-app.use(express.static(distDir));
+const isLocal = process.env.db_link ? false : true;
+
+if(isLocal) {
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+}
+
+if(!isLocal) {
+  // Create link to Angular build directory
+  const distDir = __dirname + "./../dist";
+  app.use(express.static(distDir));
+}
+
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 let db;
@@ -33,8 +46,9 @@ mongodb.MongoClient.connect(db_link, function (err, client) {
   db = client.db();
   console.log("Database connection ready");
 
-  const port = 8080;
-  // const port = 3000;
+
+
+  const port = isLocal ? 3000 : 8080;
 
   // Initialize the app.
   const server = app.listen(process.env.PORT || port, function () {
@@ -101,6 +115,7 @@ app.post('/api/addClient', function (req, res) {
 
     db.collection('clients').insert({
       name: client.clientname,
+      father: client.clientfather,
       surname: client.clientsurname,
       tel: client.clientphone,
       comment: client.clientcomment,
@@ -385,9 +400,11 @@ app.get('/api/getTimelineEvents/:id', function (req, res) {
 });
 
 
-app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname+'./../dist'));
-});
+if(!isLocal) {
+  app.get('/*', function(req,res) {
+    res.sendFile(path.join(__dirname+'./../dist'));
+  });
+}
 
 
 
