@@ -11,15 +11,3 @@ nav a:hover{
     opacity: 0.8;
     text-decoration: none;
 }
-
-@media only screen and (max-width: 900px)  {
-  nav a {
-    overflow: hidden;
-  }
-  nav a span {
-    display: none;
-  }
-  app-menuwidget {
-    display: none;
-  }
-}

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-clients-grid',
   templateUrl: './clients-grid.component.html',
-  styleUrls: ['./clients-grid.component.css'],
+  styleUrls: ['./clients-grid.component.scss'],
 })
 export class ClientsGridComponent implements OnInit {
   @Input() clients = [];

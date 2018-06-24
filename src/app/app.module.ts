@@ -9,6 +9,8 @@ import { registerLocaleData } from '@angular/common';
 import localeUk from '@angular/common/locales/uk';
 registerLocaleData(localeUk);
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 // Bootstrap
 import { ModalModule } from 'ngx-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -74,6 +76,7 @@ import { AdminComponent } from './components/admin/admin.component';
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     CalendarModule.forRoot(),
+    AngularFontAwesomeModule,
     NvD3Module,
   ],
   providers: [ClientsService],

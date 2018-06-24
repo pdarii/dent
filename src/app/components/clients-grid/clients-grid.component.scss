@@ -1,0 +1,10 @@
+ul{
+    margin-top: 10px;
+}
+
+.badge {
+  border-radius: 4px;
+  &:hover {
+     cursor: pointer;
+   }
+}

@@ -265,7 +265,7 @@ app.get('/api/getCalendarData', function (req, res) {
     {
       $lookup:
         {
-          from: "clients",
+          from: CLIENTS_COLLECTION,
           localField: "clientid",
           foreignField: "_id",
           as: "client"
