@@ -170,6 +170,7 @@ app.post('/api/saveClient', function (req, res) {
     {
       $set: {
         name: client.clientname,
+        father: client.clientfather,
         surname: client.clientsurname,
         tel: client.clientphone,
         comment: client.clientcomment,
