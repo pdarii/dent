@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-timeline',
@@ -12,7 +13,10 @@ export class TimelineComponent implements OnInit {
   public timelineEvents: any;
   public doctors: any;
 
-  constructor(private clientsService: ClientsService) {}
+  constructor(
+    private clientsService: ClientsService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getTimelineEvents();
@@ -47,6 +51,9 @@ export class TimelineComponent implements OnInit {
     }
   }
 
+  public editTimelineElement(id) {
+    this.router.navigate(['/editplan', id]);
+  }
 
 
 }

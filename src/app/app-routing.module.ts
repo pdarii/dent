@@ -12,6 +12,7 @@ import { StatisticComponent } from './components/statistic/statistic.component';
 
 import { PlanclientComponent } from './components/planclient/planclient.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { EditplanclientComponent } from './components/editplanclient/editplanclient.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/clients', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'calendar', component: ClinicCalendarComponent },
   { path: 'statistic', component: StatisticComponent },
   { path: 'edit/:id', component: EditclientComponent },
+  { path: 'editplan/:id', component: EditplanclientComponent },
   { path: 'plan/:id', component: PlanclientComponent },
   { path: 'birthdays', component: BirthdaysComponent },
   { path: 'werelongago', component: LongagoComponent },

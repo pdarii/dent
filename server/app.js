@@ -101,6 +101,23 @@ app.post('/api/deleteClient',function(req,res){
     });
 });
 
+app.post('/api/deleteEvent',function(req,res){
+  const id = req.body.id;
+  db.collection('calendar').remove({ _id: ObjectId(id) }, true)
+    .then((result) => {
+      return res.status(200).json({
+        status: 'success',
+        data: result
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
+
 
 app.post('/api/addClient', function (req, res) {
   const client = req.body;
@@ -147,7 +164,7 @@ app.post('/api/planClient', function (req, res) {
   db.collection('calendar').insert({
     clientid: ObjectId(client.clientid),
     datetime: client.plandate,
-    // jobdone: client.clientjob, @TODO rewrite to use predefined jobs
+    jobtype: client.clientjob,
     jobdone: client.clientcomment,
     doctor: client.doctor,
   }).then((result) => {
@@ -390,6 +407,23 @@ app.get('/api/getTimelineEvents/:id', function (req, res) {
       return res.status(200).json({
         status: 'success',
         data: events
+      })
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      })
+    });
+});
+
+app.get('/api/getTimelineEventById/:id', function (req, res) {
+  const id = req.params.id;
+  db.collection('calendar').findOne({ "_id": ObjectId(id) }, {})
+    .then((client) => {
+      return res.status(200).json({
+        status: 'success',
+        data: client
       })
     })
     .catch((err) => {

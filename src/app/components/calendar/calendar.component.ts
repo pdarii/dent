@@ -62,7 +62,6 @@ export class ClinicCalendarComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-    // console.log(this.events);
   }
 
   private getData() {
@@ -79,6 +78,7 @@ export class ClinicCalendarComponent implements OnInit {
                 } / ${moment(event.datetime).format('HH:mm DD/MM/YYYY')}`,
               color: this.getColor(event.doctor),
               clientId: event.clientid,
+              id: event._id,
             };
           });
           this.showSpinner = false;
@@ -128,6 +128,6 @@ export class ClinicCalendarComponent implements OnInit {
   }
 
   handleEvent(action: string, event: any): void {
-    this.router.navigate([`/edit/${event.clientId}`]);
+    this.router.navigate([`/editplan/${event.id}`]);
   }
 }

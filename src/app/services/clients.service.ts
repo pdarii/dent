@@ -49,6 +49,14 @@ export class ClientsService {
       });
   }
 
+  public deleteEvent(id): Observable<any> {
+    return this.http
+      .post(this.link + '/api/deleteEvent', { id })
+      .map(result => {
+        return result['data'];
+      });
+  }
+
   public getClients(): Observable<any> {
     return this.http.get(this.link + '/api/getClients').map(result => {
       return result['data'];
@@ -128,6 +136,14 @@ export class ClientsService {
   public getTimelineEvents(id: string): Observable<any> {
     return this.http
       .get(`${ this.link }/api/getTimelineEvents/${id}`)
+      .map(result => {
+        return result['data'];
+      });
+  }
+
+  public getTimelineEventById(id: string): Observable<any> {
+    return this.http
+      .get(`${ this.link }/api/getTimelineEventById/${id}`)
       .map(result => {
         return result['data'];
       });

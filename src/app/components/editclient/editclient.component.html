@@ -31,14 +31,14 @@
 
   <div *ngIf="isEditMode">
     <button [disabled]="clientForm.invalid" type="submit" class="btn btn-primary">Зберегти</button>
-    <button (click)="resetForm()" class="btn btn-primary">Відміна</button>
-    <button (click)="openModal(template)" class="btn btn-danger">Видалити</button>
+    <button (click)="resetForm()" class="btn btn-primary" type="button">Відміна</button>
+    <button (click)="openModal(template)" class="btn btn-danger" type="button">Видалити Картку</button>
   </div>
 
   <div *ngIf="!isEditMode">
-    <button (click)="edit()" class="btn btn-primary">Редагувати</button>
-    <button (click)="planClient(client._id)" class="btn btn-primary">Записати на прийом</button>
-    <button class="btn btn-primary" disabled>Рентгени</button>
+    <button (click)="edit()" class="btn btn-primary" type="button">Редагувати</button>
+    <button (click)="planClient(client._id)" class="btn btn-primary" type="button">Записати на прийом</button>
+    <button class="btn btn-primary" type="button" disabled>Рентгени</button>
   </div>
 
 </form>

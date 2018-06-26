@@ -47,6 +47,7 @@ import { ClientsGridComponent } from './components/clients-grid/clients-grid.com
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { EditplanclientComponent } from './components/editplanclient/editplanclient.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { AdminComponent } from './components/admin/admin.component';
     SpinnerComponent,
     TimelineComponent,
     AdminComponent,
+    EditplanclientComponent,
   ],
   imports: [
     BrowserModule,

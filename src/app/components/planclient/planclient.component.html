@@ -38,6 +38,15 @@
     placeholder="Обсяг роботи" rows="3" formControlName="clientcomment"></textarea>
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="clientForm.invalid">Зберегти</button>
+  <button type="button" *ngIf="event" (click)="openModal(templateEditPlan);" class="btn btn-danger">Видалити Запис</button>
 </form>
 
 <app-spinner [showSpinner]="showSpinner"></app-spinner>
+
+<ng-template #templateEditPlan>
+  <div class="modal-body text-center">
+    <p>Ви дійсно бажаєте видалити цю подію?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Видалити</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Не видаляти</button>
+  </div>
+</ng-template>

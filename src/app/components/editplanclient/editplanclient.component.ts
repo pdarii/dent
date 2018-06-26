@@ -1,0 +1,34 @@
+import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ClientsService} from '../../services/clients.service';
+
+@Component({
+  selector: 'app-editplanclient',
+  templateUrl: './editplanclient.component.html',
+  styleUrls: ['./editplanclient.component.scss']
+})
+export class EditplanclientComponent implements OnInit {
+
+  public event: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private clientsService: ClientsService
+  ) { }
+
+  ngOnInit() {
+    this.initParamsSubscription();
+  }
+
+  private initParamsSubscription() {
+    this.route.paramMap
+      .switchMap((params: ParamMap) =>
+        this.clientsService.getTimelineEventById(params.get('id'))
+      )
+      .subscribe(event => {
+        this.clientsService.getClientById(event.clientid).subscribe((client) => {
+          this.event = { event, client };
+        });
+      });
+  }
+}
