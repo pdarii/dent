@@ -25,11 +25,12 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import * as moment from 'moment';
 import 'moment/locale/ru';
 import 'moment/locale/uk';
+import {ValidatePhone} from '../../validators/client.validator';
 
 @Component({
   selector: 'app-planclient',
   templateUrl: './planclient.component.html',
-  styleUrls: ['./planclient.component.css'],
+  styleUrls: ['./planclient.component.scss'],
   providers: [{ provide: TimepickerConfig, useFactory: getTimepickerConfig }],
 })
 export class PlanclientComponent implements OnInit {
@@ -38,7 +39,6 @@ export class PlanclientComponent implements OnInit {
   modalRef: BsModalRef;
   public clientForm: FormGroup;
   public client: Client;
-  private plan: Plan;
 
   public jobs: Jobs;
   // @TODO interfaces
@@ -67,7 +67,6 @@ export class PlanclientComponent implements OnInit {
     };
     this.getJobs();
     this.getDoctors();
-
     if (this.event) {
       this.setClientAndEvent(this.event);
     } else {
@@ -75,9 +74,20 @@ export class PlanclientComponent implements OnInit {
     }
   }
 
+  public getClientName(client) {
+    return client.name ? `${client.name || ''} ${client.father  || ''} ${client.surname  || ''}` : 'Анонім';
+  }
+
   private createForm() {
     this.clientForm = this.fb.group({
-      clientphone: ['', Validators.required],
+      clientphone: ['',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          ValidatePhone,
+        ]
+      ],
       clientplandate: ['', Validators.required],
       clientplantime: ['', Validators.required],
       clientcomment: [''],
@@ -87,25 +97,43 @@ export class PlanclientComponent implements OnInit {
     });
   }
 
-  private planClient(client) {
-
-    const planDate = moment(client.clientplandate);
-    const planTime = moment(client.clientplantime);
+  private combineDates(clientplandate, clientplantime) {
+    const planDate = moment(clientplandate);
+    const planTime = moment(clientplantime);
     const planTimeHours = planTime.hour();
     const planTimeMinutes = planTime.minute();
+    return planDate.hour(planTimeHours).minute(planTimeMinutes).toDate();
+  }
 
-    const clientData = {
-      ...client,
-      plandate: planDate.hour(planTimeHours).minute(planTimeMinutes).toDate(),
+  private editEvent(formData) {
+    const editedData = {
+      ...this.event.event,
+      datetime: this.combineDates(formData.clientplandate, formData.clientplantime),
+      doctor: formData.doctor,
+      jobdone: formData.clientcomment,
+      jobtype: formData.clientjob,
     };
-
-    this.clientsService.planClient(clientData).subscribe((plannedClient) => {
-      this.router.navigate([`/edit/${plannedClient.clientid}`]);
+    this.clientsService.editPlanClient(editedData).subscribe((clientid) => {
+      this.successRedirect(clientid);
     });
   }
 
+  private planEvent(formData) {
+      const newData = {
+        ...formData,
+        plandate: this.combineDates(formData.clientplandate, formData.clientplantime),
+      };
+      this.clientsService.planClient(newData).subscribe((plannedClient) => {
+        this.successRedirect(plannedClient.clientid);
+      });
+  }
+
   public onSubmit() {
-    this.planClient(this.clientForm.value);
+    if (this.event) {
+      this.editEvent(this.clientForm.value);
+    } else {
+      this.planEvent(this.clientForm.value);
+    }
   }
 
   private setClientAndEvent({event, client}) {
@@ -181,11 +209,20 @@ export class PlanclientComponent implements OnInit {
   private deleteEvent(id) {
     this.clientsService.deleteEvent(id).subscribe((result: any) => {
       if (result.n > 0) {
-        this.router.navigate([`/edit/${this.event.client._id}`]);
+        this.successRedirect(this.event.client._id);
       } else {
         console.error(result);
       }
     });
 
   }
+
+  private successRedirect(clientid) {
+    if (clientid) {
+      this.router.navigate([`/edit/${clientid}`]);
+    } else {
+      this.router.navigate([`/clients`]);
+    }
+  }
+
 }

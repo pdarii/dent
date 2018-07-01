@@ -14,11 +14,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
+import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ruLocale } from 'ngx-bootstrap/locale';
+defineLocale('ru', ruLocale);
 
 @Component({
   selector: 'app-editclient',
   templateUrl: './editclient.component.html',
-  styleUrls: ['./editclient.component.css'],
+  styleUrls: ['./editclient.component.scss'],
 })
 export class EditclientComponent implements OnInit {
   isEditMode = false;
@@ -26,18 +30,26 @@ export class EditclientComponent implements OnInit {
   client: Client;
   clientForm: FormGroup;
   modalText: String;
+  bsConfig: Partial<BsDatepickerConfig>;
+
 
   constructor(
     private clientsService: ClientsService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private localeService: BsLocaleService
   ) {
     this.createForm();
+    this.localeService.use('ru');
   }
 
   ngOnInit() {
+    this.bsConfig = {
+      ...this.bsConfig,
+      dateInputFormat: 'DD.MM.YYYY'
+    };
     this.route.paramMap
       .switchMap((params: ParamMap) =>
         this.clientsService.getClientById(params.get('id'))

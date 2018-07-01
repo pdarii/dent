@@ -162,11 +162,12 @@ app.post('/api/addClient', function (req, res) {
 app.post('/api/planClient', function (req, res) {
   const client = req.body;
   db.collection('calendar').insert({
-    clientid: ObjectId(client.clientid),
+    clientid: client.clientid ? ObjectId(client.clientid) : '',
     datetime: client.plandate,
     jobtype: client.clientjob,
     jobdone: client.clientcomment,
     doctor: client.doctor,
+    tel: client.clientphone
   }).then((result) => {
     return res.status(200).json({
       status: 'success',
@@ -178,6 +179,28 @@ app.post('/api/planClient', function (req, res) {
       error: `Insert error ${err}`
     })
   });
+});
+
+app.post('/api/editPlanClient', function (req, res) {
+  const event = req.body;
+  db.collection('calendar').update(
+    {_id:ObjectId(event._id)},
+    { $set : {
+        datetime: event.datetime,
+        jobtype: event.jobtype,
+        jobdone: event.jobdone,
+        doctor: event.doctor,
+    }}).then((result) => {
+      return res.status(200).json({
+        status: 'success',
+        data: event.clientid
+      })
+    }).catch((err) => {
+      return res.status(500).json({
+        status: 'error',
+        error: `Update error ${err}`
+      })
+    });
 });
 
 

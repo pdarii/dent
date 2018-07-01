@@ -1,0 +1,21 @@
+input.ng-touched.ng-invalid {
+    border-color:red;
+}
+
+input:read-only,
+textarea:read-only {
+    pointer-events: none;
+}
+
+.datepicker-holder {
+  position: relative;
+  fa {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    font-size: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

@@ -35,7 +35,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css'],
+  styleUrls: ['./calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -99,7 +99,7 @@ export class ClinicCalendarComponent implements OnInit {
   }
 
   private getClientName(client) {
-    return client.length ? `${client[0].name || ''} ${client[0].father  || ''} ${client[0].surname  || ''}` : '';
+    return client.length ? `${client[0].name || ''} ${client[0].father  || ''} ${client[0].surname  || ''}` : 'Анонім';
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

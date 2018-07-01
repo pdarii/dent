@@ -26,9 +26,18 @@ export class EditplanclientComponent implements OnInit {
         this.clientsService.getTimelineEventById(params.get('id'))
       )
       .subscribe(event => {
-        this.clientsService.getClientById(event.clientid).subscribe((client) => {
-          this.event = { event, client };
-        });
+        if (event.clientid) {
+          this.clientsService.getClientById(event.clientid).subscribe((client) => {
+            this.event = { event, client };
+          });
+        } else {
+          this.event = {
+            event,
+            client: {
+              tel: event.tel,
+              _id: '',
+            } };
+        }
       });
   }
 }

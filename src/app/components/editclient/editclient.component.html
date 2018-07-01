@@ -20,9 +20,10 @@
     <input type="phone" class="form-control" id="clientphone" formControlName="clientphone" [readonly]="!isEditMode"
     placeholder="Введіть телефон" [(ngModel)]="client.tel">
   </div>
-  <div class="form-group">
-    <input bsDatepicker #dp="bsDatepicker" type="text" class="form-control" formControlName="clientbirthday" [readonly]="!isEditMode"
-    id="clientbirthday" placeholder="Введіть дату народження" [(ngModel)]="client.clientbirthday" value="{{getBirthday()}}">
+  <div class="form-group datepicker-holder">
+    <input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" type="text" class="form-control" formControlName="clientbirthday" [readonly]="!isEditMode"
+    id="clientbirthday" placeholder="Введіть дату народження" triggers="" [(ngModel)]="client.clientbirthday" value="{{getBirthday()}}">
+    <fa *ngIf="isEditMode" name="calendar" (click)="dp.toggle()"></fa>
   </div>
   <div class="form-group">
     <textarea class="form-control" id="clientcomment" [readonly]="!isEditMode" formControlName="clientcomment"

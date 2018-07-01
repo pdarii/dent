@@ -21,7 +21,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-addclient',
   templateUrl: './addclient.component.html',
-  styleUrls: ['./addclient.component.css'],
+  styleUrls: ['./addclient.component.scss'],
 })
 export class AddclientComponent implements OnInit {
 

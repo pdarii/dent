@@ -25,9 +25,17 @@ export class ClientsService {
       });
   }
 
-  public planClient(client): Observable<any> {
+  public planClient(client): Observable<any> { console.log(client);
     return this.http
       .post(this.link + '/api/planClient', client)
+      .map(result => {
+        return result['data'];
+      });
+  }
+
+  public editPlanClient(event): Observable<any> { console.log(event);
+    return this.http
+      .post(this.link + '/api/editPlanClient', event)
       .map(result => {
         return result['data'];
       });

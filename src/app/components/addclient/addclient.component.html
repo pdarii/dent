@@ -27,10 +27,11 @@
       *ngIf="clientForm.get('clientphone').invalid && clientForm.get('clientphone').touched"
       for="clientphone">Введіть телефон у форматі 0991122333</label>
   </div>
-  <div class="form-group">
+  <div class="form-group datepicker-holder">
     <input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig"
     type="text" class="form-control" id="clientbirthday"
-    formControlName="clientbirthday" placeholder="Введіть дату народження у форматі 25.12.1987">
+    formControlName="clientbirthday" triggers="" placeholder="Введіть дату народження у форматі 25.12.1987">
+    <fa name="calendar" (click)="dp.toggle()"></fa>
     <label
       *ngIf="clientForm.get('clientbirthday').invalid && clientForm.get('clientbirthday').touched"
       for="clientbirthday">Введіть дату у форматі 25.12.1987</label>
