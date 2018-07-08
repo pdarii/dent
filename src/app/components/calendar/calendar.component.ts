@@ -99,7 +99,7 @@ export class ClinicCalendarComponent implements OnInit {
   }
 
   private getClientName(client) {
-    return client.length ? `${client[0].name || ''} ${client[0].father  || ''} ${client[0].surname  || ''}` : 'Анонім';
+    return client.length ? `${client[0].surname  || ''} ${client[0].name || ''} ${client[0].father  || ''}` : 'Анонім';
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
