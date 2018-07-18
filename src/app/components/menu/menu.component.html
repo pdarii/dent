@@ -1,10 +1,16 @@
 <nav>
+  <div>
     <a routerLink="/clients" routerLinkActive="active"><fa name="user"></fa><span>Клієнти ( {{clientsCount}} )</span></a>
     <a routerLink="/addclient" routerLinkActive="active"><fa name="address-card"></fa><span>Створити картку</span></a>
     <a routerLink="/plan/new" routerLinkActive="active"><fa name="phone"></fa><span>Записати Нового</span></a>
     <a routerLink="/calendar" routerLinkActive="active"><fa name="calendar"></fa><span>Календар</span></a>
     <a routerLink="/statistic" routerLinkActive="active"><fa name="signal"></fa><span>Статистика</span></a>
+  </div>
+  <div>
+    <a (click)="login()"><fa name="signal"></fa><span>Логін</span></a>
+    <a (click)="logout()"><fa name="signal"></fa><span>Логаут</span></a>
     <!--<a routerLink="/admin" routerLinkActive="active"><span>Admin</span></a>-->
+  </div>
 </nav>
 
 

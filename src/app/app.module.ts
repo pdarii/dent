@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserModule } from '@angular/platform-browser';
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 // Ukrainian locale for calendar
 import { registerLocaleData } from '@angular/common';
@@ -30,6 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Services
 import { ClientsService } from './services/clients.service';
+import { AuthService } from './services/auth.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -73,6 +78,13 @@ import { EditplanclientComponent } from './components/editplanclient/editplancli
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4200'],
+        blacklistedRoutes: ['localhost:4200/auth/']
+      }
+    }),
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
@@ -81,7 +93,7 @@ import { EditplanclientComponent } from './components/editplanclient/editplancli
     AngularFontAwesomeModule,
     NvD3Module,
   ],
-  providers: [ClientsService],
+  providers: [ClientsService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -9,8 +9,20 @@ const path = require('path')
 const CLIENTS_COLLECTION = "clients";
 
 const app = express();
+var jwt = require('express-jwt');
+var cors = require('cors');
+
+app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Authentication middleware provided by express-jwt.
+// This middleware will check incoming requests for a valid
+// JWT on any routes that it is applied to.
+var authCheck = jwt({
+  secret: new Buffer('j52jWgs3VjnajLaBvaN6xDNJvL9gf1X9vwhDPDnEK9tuDdYvVsvqUm59xgeNNljR', 'base64'),
+  audience: 'Adpvbg_TwPETm23za7gvj7jSO0PXkb-w'
+});
 
 
 const isLocal = process.env.db_link ? false : true;
