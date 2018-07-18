@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import 'rxjs/add/operator/switchMap';
+
 
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
@@ -25,7 +25,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import * as moment from 'moment';
 import 'moment/locale/ru';
 import 'moment/locale/uk';
-import {ValidatePhone} from '../../validators/client.validator';
+import { ValidatePhone } from '../../validators/client.validator';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-planclient',
@@ -154,9 +155,9 @@ export class PlanclientComponent implements OnInit {
   private initParamsSubscription() {
     this.showSpinner = true;
     this.route.paramMap
-      .switchMap((params: ParamMap) =>
+      .pipe(switchMap((params: ParamMap) =>
         this.clientsService.getClientById(params.get('id'))
-      )
+      ))
       .subscribe(client => {
         this.client = client;
         this.clientForm.patchValue({

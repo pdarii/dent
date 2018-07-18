@@ -5,7 +5,7 @@ import { ClientsService } from './../../services/clients.service';
 
 import { Router } from '@angular/router';
 
-import 'rxjs/add/operator/switchMap';
+
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as moment from 'moment';
 
@@ -18,6 +18,7 @@ import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ruLocale } from 'ngx-bootstrap/locale';
 defineLocale('ru', ruLocale);
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-editclient',
@@ -51,9 +52,9 @@ export class EditclientComponent implements OnInit {
       dateInputFormat: 'DD.MM.YYYY'
     };
     this.route.paramMap
-      .switchMap((params: ParamMap) =>
+      .pipe(switchMap((params: ParamMap) =>
         this.clientsService.getClientById(params.get('id'))
-      )
+      ))
       .subscribe(client => {
         this.client = client;
       });

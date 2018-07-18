@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ClientsService} from '../../services/clients.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-editplanclient',
@@ -22,9 +23,9 @@ export class EditplanclientComponent implements OnInit {
 
   private initParamsSubscription() {
     this.route.paramMap
-      .switchMap((params: ParamMap) =>
+      .pipe(switchMap((params: ParamMap) =>
         this.clientsService.getTimelineEventById(params.get('id'))
-      )
+      ))
       .subscribe(event => {
         if (event.clientid) {
           this.clientsService.getClientById(event.clientid).subscribe((client) => {
